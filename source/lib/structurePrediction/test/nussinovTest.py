@@ -24,7 +24,7 @@ class NussinovTestClass(unittest.TestCase):
 		rnaSequence = "GCACGACG"
 		nussinov = Nussinov(rnaSequence)
 		nussinov.compute_matrix()
-		self.assertEqual(expectedMatrix, nussinov.computationMatrix)
+		self.assertEqual(expectedMatrix, nussinov.matrix)
 
 	def test_traceback(self):
 		# example for the slides of Prof. Backofen
@@ -36,4 +36,4 @@ class NussinovTestClass(unittest.TestCase):
 		self.assertEqual(expectedMatrix, nussinov.pairedBases)
 
 if __name__ == "__main__":
-    unittest.main() # run all tests     
+    unittest.main() # run all tests

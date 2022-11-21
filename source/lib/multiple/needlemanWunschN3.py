@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python3
 # Copyright 2015 Joachim Wolff
 # Programming Course: Algorithms in Bioinformatics
 # Tutors: Robert Kleinkauf, Omer Alkhnbashi

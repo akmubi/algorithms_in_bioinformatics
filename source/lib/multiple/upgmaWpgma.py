@@ -10,6 +10,8 @@
 # Albert-Ludwig-University Freiburg im Breisgau
 import math
 
+# TODO: understand
+
 class UpgmaWpgma():
     """
         Upgma/Wpgma is a clustering method to generate phylogenetic trees.
@@ -203,9 +205,9 @@ class UpgmaWpgma():
                 if i in self.edgeWeight:
                     nodesWithWeights = newickDict[i].split(' ')
                     nodesWithWeights[0] = nodesWithWeights[0].strip(' ')
-                    nodesWithWeights[0] += f':{self.edgeWeight[i][1]}'
+                    nodesWithWeights[0] += ':' + f'{self.edgeWeight[i][1]}'
                     nodesWithWeights[1] = nodesWithWeights[1].strip(' ')
-                    nodesWithWeights[1] += f':{self.edgeWeight[i][0]}'
+                    nodesWithWeights[1] += ':' + f'{self.edgeWeight[i][0]}'
                     newickDict[i] = f'{nodesWithWeights[0]} {nodesWithWeights[1]}'
             self.mapping = dict([[v, k] for k, v in newickDict.items()])
 
@@ -213,22 +215,22 @@ class UpgmaWpgma():
             index = -1
             leadingSequence = True
             for j in newickDict:
-                stringToFind = f' {self.mapping[i]}'# + ''
+                stringToFind = ' ' + f'{self.mapping[i]}'
                 if newickDict[j].find(stringToFind) != -1:
                     index = j
                     leadingSequence = False
                     break
 
-                stringToFind = f'{self.mapping[i]} '
+                stringToFind = f'{self.mapping[i]}' + ' '
                 if newickDict[j].find(stringToFind) != -1:
                     index = j
                     leadingSequence = True
                     break
 
                 if widthEdgeWeights:
-                    stringToFind = f'{self.mapping[i]}:'
+                    stringToFind = f'{self.mapping[i]}' + ':'
                 else:
-                    stringToFind = f'{self.mapping[i]},'
+                    stringToFind = f'{self.mapping[i]}' + ','
 
                 if newickDict[j].find(stringToFind) != -1:
                     index = j
@@ -245,9 +247,9 @@ class UpgmaWpgma():
                 key = int(stringToFind.strip().strip(',').strip(':'))
                 value = newickDict[key].replace(' ', ',')
                 if leadingSequence:
-                    stringToReplace = f'({value}):'
+                    stringToReplace = f'({value})' + ':'
                 else:
-                    stringToReplace = f',({value})'
+                    stringToReplace = ',' + f'({value})'
 
                 newickDict[index] = \
                     newickDict[index].replace(stringToFind, stringToReplace) \

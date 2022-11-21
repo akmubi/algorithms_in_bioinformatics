@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python3
 # Copyright 2015 Joachim Wolff
 # Programming Course: Algorithms in Bioinformatics
 # Tutors: Robert Kleinkauf, Omer Alkhnbashi
@@ -14,6 +14,7 @@ from helper import PairwiseAlignmentHelper as helper
 from multiple import UpgmaWpgma
 import random
 
+# TODO: understand
 class FengDoolittle():
     """
         This class computes the Feng-Doolittle algorithm by Da-Fei Feng and Russell F. Doolittle:
