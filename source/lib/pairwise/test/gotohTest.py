@@ -15,7 +15,7 @@ import os, sys
 lib_path = os.path.abspath('../../')
 sys.path.append(lib_path)
 
-from pairwise import Gotoh 
+from pairwise import Gotoh
 from helper import PairwiseAlignmentHelper as pah
 from helper import MathHelper as mathHelper
 class GotohTestClass(unittest.TestCase):
@@ -37,13 +37,13 @@ class GotohTestClass(unittest.TestCase):
             computedMatrixP[0][i] = mathHelper.Inf
             computedMatrixQ[0][i] = mathHelper.NaN
 
-       
+
         # define values that should be computed by Gotoh algorithm
         # matrix D
         computedMatrixD[1][1] = 0
         computedMatrixD[2][1] = 3
         computedMatrixD[3][1] = 4
-        
+
         computedMatrixD[1][2] = 3
         computedMatrixD[2][2] = 1
         computedMatrixD[3][2] = 3
@@ -52,7 +52,7 @@ class GotohTestClass(unittest.TestCase):
         computedMatrixP[1][1] = 6
         computedMatrixP[2][1] = 3
         computedMatrixP[3][1] = 4
-        
+
         computedMatrixP[1][2] = 7
         computedMatrixP[2][2] = 6
         computedMatrixP[3][2] = 4
@@ -61,7 +61,7 @@ class GotohTestClass(unittest.TestCase):
         computedMatrixQ[1][1] = 6
         computedMatrixQ[2][1] = 7
         computedMatrixQ[3][1] = 8
-        
+
         computedMatrixQ[1][2] = 3
         computedMatrixQ[2][2] = 6
         computedMatrixQ[3][2] = 7
@@ -73,7 +73,7 @@ class GotohTestClass(unittest.TestCase):
         gotoh.compute_matrix()
         # print gotoh.computationMatrix
         self.assertEqual(computedMatrix, gotoh.computationMatrix)
-        
+
     def test_traceback(self):
         """Test method to test the correct computation of the traceback."""
         #test case with a single traceback
@@ -82,7 +82,7 @@ class GotohTestClass(unittest.TestCase):
         gotoh = Gotoh(a, b, "weightFunctionDifference", "gapCost")
         computedAlignment = [["AGC", "A-C"]]
         gotoh.compute_matrix()
-        gotoh.traceback()
+        gotoh.__traceback()
         self.assertEqual(computedAlignment, gotoh.computedAlignment)
 
         # test case with a multiple traceback
@@ -91,8 +91,8 @@ class GotohTestClass(unittest.TestCase):
         gotoh2 = Gotoh(a, b, "weightFunctionDifference", "gapCost")
         gotoh2.compute_matrix()
         computedAlignment = [["--CC","ACCT"], ["CC--","ACCT"]]
-        gotoh2.traceback()
+        gotoh2.__traceback()
         self.assertEqual(computedAlignment, gotoh2.computedAlignment)
 
 if __name__ == "__main__":
-    unittest.main() # run all tests     
+    unittest.main() # run all tests

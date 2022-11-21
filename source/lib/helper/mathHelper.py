@@ -10,6 +10,7 @@
 # Albert-Ludwig-University Freiburg im Breisgau
 #
 # A math helper class. Some constants are defined here.
+# TODO: delete file
 class MathHelper():
 	"""MathHelper class. Some constants are defined."""
 	Inf = 1e3000
