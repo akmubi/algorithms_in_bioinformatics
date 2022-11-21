@@ -1,0 +1,100 @@
+>Alignment 0 sequence 0
+CTCAG---TT-C
+>Alignment 0 sequence 1
+---AGCGCT-GC
+>Alignment 1 sequence 0
+CTCAG---T-TC
+>Alignment 1 sequence 1
+---AGCGCTG-C
+>Alignment 2 sequence 0
+CTCAG---TTC
+>Alignment 2 sequence 1
+---AGCGCTGC
+>Alignment 3 sequence 0
+CTCAGT---T-C
+>Alignment 3 sequence 1
+---AG-CGCTGC
+>Alignment 4 sequence 0
+--CT-CAGTT-C
+>Alignment 4 sequence 1
+AGC-GC--T-GC
+>Alignment 5 sequence 0
+CTCA--G-TT-C
+>Alignment 5 sequence 1
+---AGCGCT-GC
+>Alignment 6 sequence 0
+--CT-CA-GTTC
+>Alignment 6 sequence 1
+AGC-GC-TG--C
+>Alignment 7 sequence 0
+CTCAG---TT-C
+>Alignment 7 sequence 1
+---AGCGC-TGC
+>Alignment 8 sequence 0
+CTCAG--TT-C
+>Alignment 8 sequence 1
+---AGCGCTGC
+>Alignment 9 sequence 0
+CTCAG-T-T-C
+>Alignment 9 sequence 1
+---AGCGCTGC
+>Alignment 10 sequence 0
+CTCAGT--T-C
+>Alignment 10 sequence 1
+---AGCGCTGC
+>Alignment 11 sequence 0
+--C-TCAGTT-C
+>Alignment 11 sequence 1
+AGCG-C--T-GC
+>Alignment 12 sequence 0
+--CTCAGTT-C
+>Alignment 12 sequence 1
+AGCGC--T-GC
+>Alignment 13 sequence 0
+--CTCAG-TT-C
+>Alignment 13 sequence 1
+AGC---GCT-GC
+>Alignment 14 sequence 0
+--CT-C-AGTTC
+>Alignment 14 sequence 1
+AGC-GCT-G--C
+>Alignment 15 sequence 0
+--CT-CAGTTC
+>Alignment 15 sequence 1
+AGC-GCTG--C
+>Alignment 16 sequence 0
+CT--CAG-TT-C
+>Alignment 16 sequence 1
+--AGC-GCT-GC
+>Alignment 17 sequence 0
+--C--TCAGTTC
+>Alignment 17 sequence 1
+AGCGCT--G--C
+>Alignment 18 sequence 0
+C--TCAG-TT-C
+>Alignment 18 sequence 1
+-AG-C-GCT-GC
+>Alignment 19 sequence 0
+C-TCAG-TT-C
+>Alignment 19 sequence 1
+-AGC-GCT-GC
+>Alignment 20 sequence 0
+CT-CAG-TT-C
+>Alignment 20 sequence 1
+-AGC-GCT-GC
+>Alignment 21 sequence 0
+----CTCAGTTC
+>Alignment 21 sequence 1
+AGCGCT--G--C
+>Alignment 22 sequence 0
+--CTCAG-TT-C
+>Alignment 22 sequence 1
+AG--C-GCT-GC
+>Alignment 23 sequence 0
+-CTCAG-TT-C
+>Alignment 23 sequence 1
+AG-C-GCT-GC
+>Alignment 24 sequence 0
+C-TCAG-TT-C
+>Alignment 24 sequence 1
+AG-C-GCT-GC

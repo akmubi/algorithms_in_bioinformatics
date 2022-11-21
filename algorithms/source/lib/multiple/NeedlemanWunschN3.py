@@ -8,7 +8,7 @@
 # Department of Computer Science
 # Faculty of Engineering
 # Albert-Ludwig-University Freiburg im Breisgau
-from helper import MultipleAlignmentHelper as helper
+from lib.helper.MultipleAlignmentHelper import MultipleAlignmentHelper as helper
 
 class NeedlemanWunschN3():
     """
@@ -24,6 +24,7 @@ class NeedlemanWunschN3():
         self.seqA = seqA
         self.seqB = seqB
         self.seqC = seqC
+        self.matrix = [[[]]]
         self.traceStack = [[]]
         self.traceIndex = 0
         self.traceIndices = [[]]
@@ -38,51 +39,51 @@ class NeedlemanWunschN3():
             algorithm for three sequences.
         """
         n, m, o = len(seqA) + 1, len(seqB) + 1, len(seqC) + 1
-        matrix = [[[0] * o] * m] * n
+        self.matrix = [[[0 for _ in range(o)] for _ in range(m)] for _ in range(n)]
 
         # initalize matrix
         for i in range(1, n):
-            matrix[i][0][0] = matrix[i - 1][0][0] + \
+            self.matrix[i][0][0] = self.matrix[i - 1][0][0] + \
                               self.__score('-', '-', seqA[i - 1])
 
         for i in range(1, m):
-            matrix[0][i][0] = matrix[0][i - 1][0] + \
+            self.matrix[0][i][0] = self.matrix[0][i - 1][0] + \
                               self.__score('-', '-', seqB[i - 1])
 
         for i in range(1, o):
-            matrix[0][0][i] = matrix[0][0][i - 1] + \
+            self.matrix[0][0][i] = self.matrix[0][0][i - 1] + \
                               self.__score('-', '-', seqC[i - 1])
 
         for i in range(1, n):
             for j in range(1, m):
-                matrix[i][j][0] = matrix[i - 1][j - 1][0] + \
+                self.matrix[i][j][0] = self.matrix[i - 1][j - 1][0] + \
                                   self.__score(seqA[i - 1], seqB[j - 1], '-')
 
         for i in range(1, n):
             for k in range(1, o):
-                matrix[i][0][k] = matrix[i - 1][0][k - 1] + \
+                self.matrix[i][0][k] = self.matrix[i - 1][0][k - 1] + \
                                   self.__score(seqA[i - 1], '-', seqC[k - 1])
 
         for j in range(1, m):
             for k in range(1, o):
-                matrix[0][j][k] = matrix[0][j - 1][k - 1] + \
+                self.matrix[0][j][k] = self.matrix[0][j - 1][k - 1] + \
                                   self.__score('-', seqB[j - 1], seqC[k - 1])
 
         for i in range(1, n):
             for j in range(1, m):
                 for k in range(1, o):
-                    matrix[i][j][k] = self.__computeMinimum(
-                        matrix,
+                    self.matrix[i][j][k] = self.__computeMaximum(
+                        self.matrix,
                         i, j, k,
                         seqA[i - 1], seqB[j - 1], seqC[k - 1]
                     )
 
-        return matrix
+        return self.matrix
 
-    def __computeMinimum(self, matrix, i, j, k, charA, charB, charC):
+    def __computeMaximum(self, matrix, i, j, k, charA, charB, charC):
         """
-            Compute the minimal value for a given cell of the matrix.
-            The minimum is choosen of the following values:
+            Compute the maximum for a given cell of the matrix.
+            The maximum is choosen of the following values:
                 D(i-1, j-1, k-1) + w(a_i-1, b_j-1, c_k-1)
                 D(i, j-1, k-1) + w(a_i, b_j-1, c_k-1)
                 D(i-1, j, k-1) + w(a_i-1, b_j, c_k-1)
@@ -105,7 +106,7 @@ class NeedlemanWunschN3():
         gapBC = matrix[i - 1][j][k] + self.__score(charA, '-', '-')
         gapAC = matrix[i][j - 1][k] + self.__score('-', charB, '-')
 
-        return min(noGap, gapA, gapB, gapC, gapAB, gapBC, gapAC)
+        return max(noGap, gapA, gapB, gapC, gapAB, gapBC, gapAC)
 
     def __traceback(self, seqA, seqB, seqC, matrix):
         """
@@ -226,7 +227,7 @@ class NeedlemanWunschN3():
 
             self.traceIndex += 1
 
-            print(f'\rComputing traces: {self.traceIndex:05}/{len(self.traceIndices):05}', end='')
+            print(f'\rTraces processed: {self.traceIndex:05}/{len(self.traceIndices):05}', end='')
 
             # done if we have traversed all traces
             if self.traceIndex >= len(self.traceIndices):

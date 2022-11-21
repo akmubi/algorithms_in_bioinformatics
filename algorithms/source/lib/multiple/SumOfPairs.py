@@ -10,7 +10,7 @@
 # Albert-Ludwig-University Freiburg im Breisgau
 #
 # Sum of pairs algorithm
-from helper import PairwiseAlignmentHelper as helper
+from lib.helper.PairwiseAlignmentHelper import PairwiseAlignmentHelper as helper
 
 class SumOfPairs():
     """

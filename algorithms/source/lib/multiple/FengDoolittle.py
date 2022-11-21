@@ -9,10 +9,11 @@
 # Faculty of Engineering
 # Albert-Ludwig-University Freiburg im Breisgau
 import math
-from pairwise import NeedlemanWunsch
-from helper import PairwiseAlignmentHelper as helper
-from multiple import UpgmaWpgma
 import random
+
+from lib.pairwise.NeedlemanWunsch import NeedlemanWunsch
+from lib.helper.PairwiseAlignmentHelper import PairwiseAlignmentHelper as helper
+from lib.multiple.UpgmaWpgma import UpgmaWpgma
 
 # TODO: understand
 class FengDoolittle():

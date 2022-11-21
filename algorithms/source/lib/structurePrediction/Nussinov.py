@@ -64,7 +64,7 @@ class Nussinov():
         maximumValue = [0,0,0]
         k = i
         while i <= k and k < j:
-            if self.complementary(self.sequence[k], self.sequence[j-1]):
+            if self.areComplementary(self.sequence[k], self.sequence[j-1]):
                 pairingValue = self.matrix[i][k-1] + self.matrix[k+1][j-1] + 1
                 if maximumValue[2] < pairingValue:
                     maximumValue[0] = k
@@ -73,7 +73,7 @@ class Nussinov():
             k += 1
         self.matrix[i][j] = max(self.matrix[i][j-1], maximumValue[2])
 
-    def complementary(self, characterA, characterB):
+    def areComplementary(self, charA, charB):
         """
             Returns True if two RNA nucleotides are complementary, False
             otherwise. Nucleotides are complemetary if there are 'A' and 'U' or
@@ -81,13 +81,9 @@ class Nussinov():
             characterA: First nucleotide
             characterB: Second nucleotide
         """
-        if characterA == 'A' and characterB == 'U':
+        if (charA == 'A' and charB == 'U') or (charA == 'U' and charB == 'A'):
             return True
-        elif characterA == 'U' and characterB == 'A':
-            return True
-        elif characterA == 'C' and characterB == 'G':
-            return True
-        elif characterA == 'G' and characterB == 'C':
+        elif (charA == 'C' and charB == 'G') or (charA == 'G' and charB == 'C'):
             return True
         return False
 
@@ -107,7 +103,7 @@ class Nussinov():
         else:
             k = i
             while i <= k and k < j:
-                if self.complementary(self.sequence[k-1], self.sequence[j-1]):
+                if self.areComplementary(self.sequence[k-1], self.sequence[j-1]):
 
                     if self.matrix[i][j] == self.matrix[i][k-1] + self.matrix[k][j-1] + 1:
                         self.pairedBases[k] = j

@@ -1,0 +1,804 @@
+>Alignment 0 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 0 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 0 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 1 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG--C-
+>Alignment 1 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 1 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 2 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC-G--C-
+>Alignment 2 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA-
+>Alignment 2 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC-GCCCC
+>Alignment 3 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C-
+>Alignment 3 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG-GGGA
+>Alignment 3 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC-
+>Alignment 4 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC-G---C
+>Alignment 4 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGG-A
+>Alignment 4 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC-GCCCC
+>Alignment 5 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG----C
+>Alignment 5 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG-GGGA
+>Alignment 5 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCC-C
+>Alignment 6 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC-G---C
+>Alignment 6 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGG-GA
+>Alignment 6 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC-GCCCC
+>Alignment 7 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG----C
+>Alignment 7 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG-GGGA
+>Alignment 7 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCC-CC
+>Alignment 8 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC-G---C
+>Alignment 8 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGG-GGA
+>Alignment 8 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC-GCCCC
+>Alignment 9 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG----C
+>Alignment 9 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG-GGGA
+>Alignment 9 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGC-CCC
+>Alignment 10 sequence 0
+--CT-CA-GTTCTTATACGACA-C-T-CG---C
+>Alignment 10 sequence 1
+AGC-GC-TG--C---TGCGGC-TC-G-CGGGGA
+>Alignment 10 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 11 sequence 0
+--CT-CA-GTTCTTATACGAC-AC--TCG---C
+>Alignment 11 sequence 1
+AGC-GC-TG--C---TGCGGCT-C--GCGGGGA
+>Alignment 11 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 12 sequence 0
+--CT-CA-GTTCTTATACGAC-AC--TCG---C
+>Alignment 12 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 12 sequence 2
+--C-CCCCG--C---C-CGGCG-CAGGCGCCCC
+>Alignment 13 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 13 sequence 1
+AGC-GC-TG--C---TGCGGCT-C--GCGGGGA
+>Alignment 13 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 14 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 14 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 14 sequence 2
+--C-CCCCG--C---C-CGGCG-CAGGCGCCCC
+>Alignment 15 sequence 0
+--CT-CA-GTTCTTATACGAC-AC--TCG---C
+>Alignment 15 sequence 1
+AGC-GC-TG--C---TGCGGCT-C--GCGGGGA
+>Alignment 15 sequence 2
+--C-CCCCG--C---C-CGGCG-CAGGCGCCCC
+>Alignment 16 sequence 0
+--CT-CA-GTTCTTATA-CGACA-C--TCG---C
+>Alignment 16 sequence 1
+AGC-GC-TG--C---T-GCGGC-TC--GCGGGGA
+>Alignment 16 sequence 2
+--C-CCCCG--C---C--CGGC-GCAGGCGCCCC
+>Alignment 17 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 17 sequence 1
+AGC-GC-TG--C-T-G-CGGC-TC--GCGGGGA
+>Alignment 17 sequence 2
+--C-CCCCG--C-C---CGGC-GCAGGCGCCCC
+>Alignment 18 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 18 sequence 1
+AGC-GC-TG--C-T--GCGGC-TC--GCGGGGA
+>Alignment 18 sequence 2
+--C-CCCCG--C-C---CGGC-GCAGGCGCCCC
+>Alignment 19 sequence 0
+--CT-C-AGTTCTTATACGACA-C--TCG---C
+>Alignment 19 sequence 1
+AGC-GCT-G--C---TGCGGC-TC--GCGGGGA
+>Alignment 19 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 20 sequence 0
+--CT-CAGTTCTTATACGACA-C--TCG---C
+>Alignment 20 sequence 1
+AGC-GCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 20 sequence 2
+-CCCCC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 21 sequence 0
+--CTCA--GTTCTTATACGACA-C--TCG---C
+>Alignment 21 sequence 1
+AGCGC-T-G--C---TGCGGC-TC--GCGGGGA
+>Alignment 21 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 22 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 22 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 22 sequence 2
+--CCCCC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 23 sequence 0
+--CT-C-AGTTCTTATACGACA-C--TCG---C
+>Alignment 23 sequence 1
+AGC-GCT-G--C---TGCGGC-TC--GCGGGGA
+>Alignment 23 sequence 2
+--CCCCC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 24 sequence 0
+--CTCA--GTTCTTATACGACA-C--TCG---C
+>Alignment 24 sequence 1
+AGCGC--TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 24 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 25 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 25 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 25 sequence 2
+--CCCC-CG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 26 sequence 0
+--CTC-A-GTTCTTATACGACA-C--TCG---C
+>Alignment 26 sequence 1
+AGCGC--TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 26 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 27 sequence 0
+--C-TCA-GTTCTTATACGACA-C--TCG---C
+>Alignment 27 sequence 1
+AGCG-C-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 27 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 28 sequence 0
+--CTCA-GTTCTTATACGACA-C--TCG---C
+>Alignment 28 sequence 1
+AGCGC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 28 sequence 2
+-CC-CCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 29 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 29 sequence 1
+AGCG-C-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 29 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 30 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 30 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 30 sequence 2
+--CC-CCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 31 sequence 0
+--C-TCA-GTTCTTATACGACA-C--TCG---C
+>Alignment 31 sequence 1
+AGCG-C-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 31 sequence 2
+--CC-CCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 32 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG-C--
+>Alignment 32 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 32 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 33 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC-G-C--
+>Alignment 33 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGG-A
+>Alignment 33 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC-GCCCC
+>Alignment 34 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG--C--
+>Alignment 34 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG-GGGA
+>Alignment 34 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCC-C
+>Alignment 35 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC--G-C--
+>Alignment 35 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA--
+>Alignment 35 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC--GCCCC
+>Alignment 36 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC--G--C-
+>Alignment 36 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGG-A-
+>Alignment 36 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC--GCCCC
+>Alignment 37 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C-
+>Alignment 37 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA-
+>Alignment 37 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCC-CC
+>Alignment 38 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC--G--C-
+>Alignment 38 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGG-GA-
+>Alignment 38 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC--GCCCC
+>Alignment 39 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C-
+>Alignment 39 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA-
+>Alignment 39 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGC-CCC
+>Alignment 40 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C-
+>Alignment 40 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA-
+>Alignment 40 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCG-CCCC
+>Alignment 41 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C--
+>Alignment 41 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG--GGGA
+>Alignment 41 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC--
+>Alignment 42 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG----C-
+>Alignment 42 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG--GGGA
+>Alignment 42 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCC-C-
+>Alignment 43 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG----C-
+>Alignment 43 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG--GGGA
+>Alignment 43 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCC-CC-
+>Alignment 44 sequence 0
+--CT-CA-GTTCTTATACGACA--C--TCG---C
+>Alignment 44 sequence 1
+AGC-GC-TG--C---TGCGGC-T-C--GCGGGGA
+>Alignment 44 sequence 2
+--C-CCCCG--C---C-CGGC--GCAGGCGCCCC
+>Alignment 45 sequence 0
+--CT-CA-GTTCTTAT-ACGACA-C--TCG---C
+>Alignment 45 sequence 1
+AGC-GC-TG--C---TG-CGGC-TC--GCGGGGA
+>Alignment 45 sequence 2
+--C-CCCCG--C---C--CGGC-GCAGGCGCCCC
+>Alignment 46 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 46 sequence 1
+AGC-GC-TG--C-TG--CGGC-TC--GCGGGGA
+>Alignment 46 sequence 2
+--C-CCCCG--C-C---CGGC-GCAGGCGCCCC
+>Alignment 47 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 47 sequence 1
+AGC-GC-TG--CT--G-CGGC-TC--GCGGGGA
+>Alignment 47 sequence 2
+--C-CCCCG--CC----CGGC-GCAGGCGCCCC
+>Alignment 48 sequence 0
+--CTC--AGTTCTTATACGACA-C--TCG---C
+>Alignment 48 sequence 1
+AGCGCT--G--C---TGCGGC-TC--GCGGGGA
+>Alignment 48 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 49 sequence 0
+--C-TCAGTTCTTATACGACA-C--TCG---C
+>Alignment 49 sequence 1
+AGCG-CTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 49 sequence 2
+-CCCCC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 50 sequence 0
+---CTCAGTTCTTATACGACA-C--TCG---C
+>Alignment 50 sequence 1
+-AGCGCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 50 sequence 2
+CCCC-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 51 sequence 0
+--CT--CAGTTCTTATACGACA-C--TCG---C
+>Alignment 51 sequence 1
+AGC-G-CTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 51 sequence 2
+--CCCCC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 52 sequence 0
+--CT-CAGTTCTTATACGACA-C--TCG---C
+>Alignment 52 sequence 1
+AGC-GCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 52 sequence 2
+CCCC-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 53 sequence 0
+--C-TCAGTTCTTATACGACA-C--TCG---C
+>Alignment 53 sequence 1
+AGCG-CTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 53 sequence 2
+CCCC-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 54 sequence 0
+--CT-CAGTTCTTATACGACA-C--TCG---C
+>Alignment 54 sequence 1
+AGC-GCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 54 sequence 2
+CCC-CC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 55 sequence 0
+--C-T-CAGTTCTTATACGACA-C--TCG---C
+>Alignment 55 sequence 1
+AGC--GCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 55 sequence 2
+--CCCCC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 56 sequence 0
+---CT-CAGTTCTTATACGACA-C--TCG---C
+>Alignment 56 sequence 1
+AG-C-GCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 56 sequence 2
+--CCCCC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 57 sequence 0
+--CT-CAGTTCTTATACGACA-C--TCG---C
+>Alignment 57 sequence 1
+AGC-GCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 57 sequence 2
+C-CCCC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 58 sequence 0
+--CTCA---GTTCTTATACGACA-C--TCG---C
+>Alignment 58 sequence 1
+AGCGC-T--G--C---TGCGGC-TC--GCGGGGA
+>Alignment 58 sequence 2
+--C-C-CCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 59 sequence 0
+--CT-CA--GTTCTTATACGACA-C--TCG---C
+>Alignment 59 sequence 1
+AGC-GC-T-G--C---TGCGGC-TC--GCGGGGA
+>Alignment 59 sequence 2
+--C-CCC-CG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 60 sequence 0
+--CTCA---GTTCTTATACGACA-C--TCG---C
+>Alignment 60 sequence 1
+AGCGC--T-G--C---TGCGGC-TC--GCGGGGA
+>Alignment 60 sequence 2
+--C-C-CCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 61 sequence 0
+--CT-CA--GTTCTTATACGACA-C--TCG---C
+>Alignment 61 sequence 1
+AGC-GC-T-G--C---TGCGGC-TC--GCGGGGA
+>Alignment 61 sequence 2
+--C-CC-CCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 62 sequence 0
+--CT-CA--GTTCTTATACGACA-C--TCG---C
+>Alignment 62 sequence 1
+AGC-GC-T-G--C---TGCGGC-TC--GCGGGGA
+>Alignment 62 sequence 2
+--C--CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 63 sequence 0
+--CT--CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 63 sequence 1
+AGC-G-C-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 63 sequence 2
+--C-CCCC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 64 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 64 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 64 sequence 2
+-CCC-CC-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 65 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCGC---
+>Alignment 65 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA
+>Alignment 65 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 66 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC-GC---
+>Alignment 66 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGG-GA
+>Alignment 66 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC-GCCCC
+>Alignment 67 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG-C---
+>Alignment 67 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG-GGGA
+>Alignment 67 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCC-CC
+>Alignment 68 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC--GC---
+>Alignment 68 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGG--A
+>Alignment 68 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC--GCCCC
+>Alignment 69 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG--C---
+>Alignment 69 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG--GGGA
+>Alignment 69 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCC--C
+>Alignment 70 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC---GC---
+>Alignment 70 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGGA---
+>Alignment 70 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC---GCCCC
+>Alignment 71 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TC---G-C--
+>Alignment 71 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCGGGG-A--
+>Alignment 71 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGC---GCCCC
+>Alignment 72 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C---
+>Alignment 72 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG---GGGA
+>Alignment 72 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCCC---
+>Alignment 73 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG----C--
+>Alignment 73 sequence 1
+AGC-GC-TG--C---TGCGGC-TC--GCG---GGGA
+>Alignment 73 sequence 2
+--C-CCCCG--C---C-CGGC-GCAGGCGCCC-C--
+>Alignment 74 sequence 0
+--CT-CA-GTTCTTATACGACA-C--TCG---C
+>Alignment 74 sequence 1
+AGC-GC-TG--CTG---CGGC-TC--GCGGGGA
+>Alignment 74 sequence 2
+--C-CCCCG--CC----CGGC-GCAGGCGCCCC
+>Alignment 75 sequence 0
+--CTC---AGTTCTTATACGACA-C--TCG---C
+>Alignment 75 sequence 1
+AGCGCT---G--C---TGCGGC-TC--GCGGGGA
+>Alignment 75 sequence 2
+--C-C-CCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 76 sequence 0
+---CTCAGTTCTTATACGACA-C--TCG---C
+>Alignment 76 sequence 1
+AG-CGCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 76 sequence 2
+CCCC-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 77 sequence 0
+----CTCAGTTCTTATACGACA-C--TCG---C
+>Alignment 77 sequence 1
+--AGCGCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 77 sequence 2
+CCC-C-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 78 sequence 0
+----CTCAGTTCTTATACGACA-C--TCG---C
+>Alignment 78 sequence 1
+--AGCGCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 78 sequence 2
+CC-CC-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 79 sequence 0
+---CT-CAGTTCTTATACGACA-C--TCG---C
+>Alignment 79 sequence 1
+AG-C-GCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 79 sequence 2
+-CCCC-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 80 sequence 0
+---CT-CAGTTCTTATACGACA-C--TCG---C
+>Alignment 80 sequence 1
+-AGC-GCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 80 sequence 2
+CC-CC-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 81 sequence 0
+---CT-CAGTTCTTATACGACA-C--TCG---C
+>Alignment 81 sequence 1
+A-GC-GCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 81 sequence 2
+-CCCC-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 82 sequence 0
+---CT-CAGTTCTTATACGACA-C--TCG---C
+>Alignment 82 sequence 1
+-AGC-GCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 82 sequence 2
+C-CCC-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 83 sequence 0
+--CTCA---GTTCTTATACGACA-C--TCG---C
+>Alignment 83 sequence 1
+AGCGCT---G--C---TGCGGC-TC--GCGGGGA
+>Alignment 83 sequence 2
+--C-C-CCCG--C---C-CGGC-GCAGGCGCCCC
+>Alignment 84 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 84 sequence 1
+A-GC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 84 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 85 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 85 sequence 1
+A-GC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 85 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGCC--CC
+>Alignment 86 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCG-C-----
+>Alignment 86 sequence 1
+A-GC-G--C---TGCTG-CGGC--TCG-CGGGGA
+>Alignment 86 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGCCC---C
+>Alignment 87 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCG--C-----
+>Alignment 87 sequence 1
+A-GC-G--C---TGCTG-CGGC--TCG--CGGGGA
+>Alignment 87 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGCCCC----
+>Alignment 88 sequence 0
+--CT-CA-GTTCTT-ATACGACA-C--TCG---C
+>Alignment 88 sequence 1
+AGC-GC-TG--C-TG---CGGC-TC--GCGGGGA
+>Alignment 88 sequence 2
+--C-CCCCG--C-C----CGGC-GCAGGCGCCCC
+>Alignment 89 sequence 0
+--CT-CA-GTTCT-TATACGACA-C--TCG---C
+>Alignment 89 sequence 1
+AGC-GC-TG--CTG----CGGC-TC--GCGGGGA
+>Alignment 89 sequence 2
+--C-CCCCG--CC-----CGGC-GCAGGCGCCCC
+>Alignment 90 sequence 0
+-----CTCAGTTCTTATACGACA-C--TCG---C
+>Alignment 90 sequence 1
+---AGCGCTG--C---TGCGGC-TC--GCGGGGA
+>Alignment 90 sequence 2
+CCC--C-C-G--C---C-CGGC-GCAGGCGCCCC
+>Alignment 91 sequence 0
+CT-CAGTTCTTATAC-GAC-AC-T-CGC-----
+>Alignment 91 sequence 1
+A-GC-G--C---TGCTG-CGGC-T-CGCGGGGA
+>Alignment 91 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 92 sequence 0
+CT-CAGTTCTTATAC-GACA-C--TCGC-----
+>Alignment 92 sequence 1
+A-GC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 92 sequence 2
+CCCCCG--C---C-C-GGCG-CAGGCGC--CCC
+>Alignment 93 sequence 0
+CT-CAGTTCTTATAC-GA-C-AC--TCGC-----
+>Alignment 93 sequence 1
+A-GC-G--C---TGCTG--CGGC--TCGCGGGGA
+>Alignment 93 sequence 2
+CCCCCG--C---C-C-G-GC-GCAGGCGC--CCC
+>Alignment 94 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 94 sequence 1
+A-GC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 94 sequence 2
+CCCCCG--C---C-CGG-C-GCAGGCGC--CCC
+>Alignment 95 sequence 0
+CT-CAGTTCTTATA-C-GAC-AC--TCGC-----
+>Alignment 95 sequence 1
+A-GC-G--C---T-GCTG-CGGC--TCGCGGGGA
+>Alignment 95 sequence 2
+CCCCCG--C---C--C-GGC-GCAGGCGC--CCC
+>Alignment 96 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 96 sequence 1
+A-GC-G--C-T-G-CTG-CGGC--TCGCGGGGA
+>Alignment 96 sequence 2
+CCCCCG--C-C---C-GGC-GCAGGCGC--CCC
+>Alignment 97 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 97 sequence 1
+A-GC-G--C-T--GCTG-CGGC--TCGCGGGGA
+>Alignment 97 sequence 2
+CCCCCG--C-C---C-GGC-GCAGGCGC--CCC
+>Alignment 98 sequence 0
+CT-CA-GTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 98 sequence 1
+A-GC--G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 98 sequence 2
+C-CCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 99 sequence 0
+-CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 99 sequence 1
+-A-GC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 99 sequence 2
+CCCCC-G--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 100 sequence 0
+CT-C-AGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 100 sequence 1
+A-GC--G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 100 sequence 2
+C-CCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 101 sequence 0
+-CTCAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 101 sequence 1
+AG-C-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 101 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 102 sequence 0
+--CTCAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 102 sequence 1
+--AGC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 102 sequence 2
+CCC-CCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 103 sequence 0
+CT--CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 103 sequence 1
+A-G-C-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 103 sequence 2
+C-CCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 104 sequence 0
+-CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 104 sequence 1
+-A-GC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 104 sequence 2
+CCC-CCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 105 sequence 0
+--CTCAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 105 sequence 1
+-AG-C-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 105 sequence 2
+CCC-CCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 106 sequence 0
+CT--CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 106 sequence 1
+A--GC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 106 sequence 2
+C-CCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 107 sequence 0
+-CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 107 sequence 1
+-A-GC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 107 sequence 2
+CC-CCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 108 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCG-C-----
+>Alignment 108 sequence 1
+A-GC-G--C---TGCTG-CGGC--TCG-CGGGGA
+>Alignment 108 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGCC---CC
+>Alignment 109 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCG--C-----
+>Alignment 109 sequence 1
+A-GC-G--C---TGCTG-CGGC--TCG--CGGGGA
+>Alignment 109 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGCCC----C
+>Alignment 110 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCGC------
+>Alignment 110 sequence 1
+A-GC-G--C---TGCTG-CGGC--TCGC-GGGGA
+>Alignment 110 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGCCC---C
+>Alignment 111 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCG---C-----
+>Alignment 111 sequence 1
+A-GC-G--C---TGCTG-CGGC--TCG---CGGGGA
+>Alignment 111 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGCCCC-----
+>Alignment 112 sequence 0
+CT-CAGTTCTTATAC-GAC-ACT--CGC-----
+>Alignment 112 sequence 1
+A-GC-G--C---TGCTG-CGGCT--CGCGGGGA
+>Alignment 112 sequence 2
+CCCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 113 sequence 0
+CT-CAGTTCTTATAC-G-AC-AC--TCGC-----
+>Alignment 113 sequence 1
+A-GC-G--C---TGCTG--CGGC--TCGCGGGGA
+>Alignment 113 sequence 2
+CCCCCG--C---C-C-GG-C-GCAGGCGC--CCC
+>Alignment 114 sequence 0
+CT-CAGTTCTTATAC--GAC-AC--TCGC-----
+>Alignment 114 sequence 1
+A-GC-G--C---TGCT-G-CGGC--TCGCGGGGA
+>Alignment 114 sequence 2
+CCCCCG--C---C-C-GG-C-GCAGGCGC--CCC
+>Alignment 115 sequence 0
+CT-CAGTTCTTATAC--GAC-AC--TCGC-----
+>Alignment 115 sequence 1
+A-GC-G--C---TGC-TG-CGGC--TCGCGGGGA
+>Alignment 115 sequence 2
+CCCCCG--C---C-CG-G-C-GCAGGCGC--CCC
+>Alignment 116 sequence 0
+CT-CAGTTCTTAT-AC-GAC-AC--TCGC-----
+>Alignment 116 sequence 1
+A-GC-G--C---TG-CTG-CGGC--TCGCGGGGA
+>Alignment 116 sequence 2
+CCCCCG--C---C--C-GGC-GCAGGCGC--CCC
+>Alignment 117 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 117 sequence 1
+A-GC-G--C-TG--CTG-CGGC--TCGCGGGGA
+>Alignment 117 sequence 2
+CCCCCG--C-C---C-GGC-GCAGGCGC--CCC
+>Alignment 118 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 118 sequence 1
+A-GC-G--CT--G-CTG-CGGC--TCGCGGGGA
+>Alignment 118 sequence 2
+CCCCCG--CC----C-GGC-GCAGGCGC--CCC
+>Alignment 119 sequence 0
+CTCA--GTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 119 sequence 1
+AGC---G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 119 sequence 2
+C-CCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 120 sequence 0
+CT-CA-GTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 120 sequence 1
+A-GC--G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 120 sequence 2
+CCCC-CG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 121 sequence 0
+CTC-A-GTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 121 sequence 1
+AGC---G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 121 sequence 2
+C-CCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 122 sequence 0
+-CTCA-GTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 122 sequence 1
+AG-C--G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 122 sequence 2
+-CCCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 123 sequence 0
+CT-CA-GTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 123 sequence 1
+AG-C--G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 123 sequence 2
+C-CCCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 124 sequence 0
+CT-CA-GTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 124 sequence 1
+A-GC--G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 124 sequence 2
+CC-CCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 125 sequence 0
+---CTCAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 125 sequence 1
+---AGC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 125 sequence 2
+CCCC-C-G--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 126 sequence 0
+CT--CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 126 sequence 1
+A-G-C-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 126 sequence 2
+CCCCC-G--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 127 sequence 0
+--CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 127 sequence 1
+--A-GC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 127 sequence 2
+CCCC-C-G--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 128 sequence 0
+---CTCAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 128 sequence 1
+--AG-C-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 128 sequence 2
+CCCC-C-G--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 129 sequence 0
+C-T-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 129 sequence 1
+A--GC-G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 129 sequence 2
+CCCCC-G--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 130 sequence 0
+CT-CAGTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 130 sequence 1
+A-GC-G--CTG---CTG-CGGC--TCGCGGGGA
+>Alignment 130 sequence 2
+CCCCCG--CC----C-GGC-GCAGGCGC--CCC
+>Alignment 131 sequence 0
+CTCA---GTTCTTATAC-GAC-AC--TCGC-----
+>Alignment 131 sequence 1
+AGC----G--C---TGCTG-CGGC--TCGCGGGGA
+>Alignment 131 sequence 2
+C-C-CCCG--C---C-C-GGC-GCAGGCGC--CCC
+>Alignment 132 sequence 0
+CT-CAGTTCTT-ATAC-GAC-AC--TCGC-----
+>Alignment 132 sequence 1
+A-GC-G--C-TG---CTG-CGGC--TCGCGGGGA
+>Alignment 132 sequence 2
+CCCCCG--C-C----C-GGC-GCAGGCGC--CCC
+>Alignment 133 sequence 0
+CT-CAGTTCT-TATAC-GAC-AC--TCGC-----
+>Alignment 133 sequence 1
+A-GC-G--CTG----CTG-CGGC--TCGCGGGGA
+>Alignment 133 sequence 2
+CCCCCG--CC-----C-GGC-GCAGGCGC--CCC

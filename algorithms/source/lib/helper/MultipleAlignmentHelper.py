@@ -9,7 +9,8 @@
 # Faculty of Engineering
 # Albert-Ludwig-University Freiburg im Breisgau
 #
-from helper import PairwiseAlignmentHelper as helper
+# from pairwiseAlignmentHelper import PairwiseAlignmentHelper as helper
+from lib.helper.PairwiseAlignmentHelper import PairwiseAlignmentHelper as helper
 
 class MultipleAlignmentHelper():
     noGap = 0
@@ -22,26 +23,14 @@ class MultipleAlignmentHelper():
 
     @staticmethod
     def weightFunctionDifference(a, b, c):
-        """
-            Weight function with 0 if a==b==c, 1 if a==b, a==c or b==c, 2 else.
-        """
-        # if a == b == c:
-        #     return 0
-        # elif a == b or b == c or a == c:
-        #     return 1
-        # else:
-        #     return 2
-
         if a == '-' or b == '-' or c == '-':
-            if a == b != '-' or b == c != '-' or a == c != '-':
-                return 0
             return 0
-        elif a == b == c:
-            return 2
+        if a == b == c:
+            return 6
         elif a == b or b == c or a == c:
             return 1
         else:
-            return 0
+            return -6
 
     def createDataForUpgmaWpgma(self, sequences):
         """

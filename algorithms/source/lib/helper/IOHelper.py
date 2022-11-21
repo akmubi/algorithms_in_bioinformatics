@@ -9,11 +9,13 @@
 # Faculty of Engineering
 # Albert-Ludwig-University Freiburg im Breisgau
 import os
+
 class IOHelper():
     """
         Helper class for reading an writing files in different formats.
     """
-    def readFastaFile(self, inputFileName):
+    @staticmethod
+    def readFastaFile(inputFileName):
         """
             Reads a given fasta file and returns it as a array.
             inputFileName: The path (relative or absolute) to the input fasta
@@ -27,14 +29,17 @@ class IOHelper():
             sequence = ''
             for line in inputFile:
                 if line.startswith('>'):
-                    if sequence.len() > 0:
+                    if len(sequence) > 0:
                         sequences.append(sequence)
+                        sequence = ''
                     continue
                 sequence += line.strip('\n')
+        sequences.append(sequence)
 
         return sequences
 
-    def writeFastaFile(self, alignments, outputFileName):
+    @staticmethod
+    def writeFastaFile(alignments, outputFileName):
         """
             Writes a the given sequences to a file in the fasta format.
             sequences:      All computed alignemnts.
@@ -53,7 +58,8 @@ class IOHelper():
                     out.write(f'{sequence}\n')
 
     # TODO: refactor
-    def writeGraphMLFile(self, clusteredNodesDictionary, outputFileName):
+    @staticmethod
+    def writeGraphMLFile(clusteredNodesDictionary, outputFileName):
         """
             Writes a tree computed by the UpgmaWpgma class in graphML-format to
             specified outputFileName.
@@ -86,7 +92,8 @@ class IOHelper():
         # fileToWrite.write("\t</graph>\n</graphml>")
         # fileToWrite.close()
 
-    def writeRnaDotBracketNotation(self, sequence, pairedBases, outputFileName):
+    @staticmethod
+    def writeRnaDotBracketNotation(sequence, pairedBases, outputFileName):
         """
             Writes a given RNA sequence and the computed matching bases in
             dot-bracket notation to the file outputFileName.
@@ -103,6 +110,7 @@ class IOHelper():
             if i in sorted(stack):
                 out.write(stack[i])
 
-    def writeNewickTree(self, newickTree, outputFileName):
+    @staticmethod
+    def writeNewickTree(newickTree, outputFileName):
         with open(outputFileName, 'w') as out:
             out.write(newickTree)

@@ -8,6 +8,7 @@
 # Department of Computer Science
 # Faculty of Engineering
 # Albert-Ludwig-University Freiburg im Breisgau
+
 class PairwiseAlignmentHelper():
     """
         Class to support the pairwise alignment algorithms

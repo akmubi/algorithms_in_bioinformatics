@@ -11,7 +11,7 @@
 #
 # Gotoh algorithm
 import math
-from helper import PairwiseAlignmentHelper as helper
+from lib.helper.PairwiseAlignmentHelper import PairwiseAlignmentHelper as helper
 
 class Gotoh():
     """
@@ -36,6 +36,7 @@ class Gotoh():
         """
         self.seqA = seqA
         self.seqB = seqB
+        self.matrices = [[], [], []]
         self.beta = self.__cost(1) - self.__cost(0)
         self.i = 0
         self.j = 0
@@ -50,9 +51,9 @@ class Gotoh():
             to be defined by the creation of the object of this class.
         """
         n, m = len(seqA) + 1, len(seqB) + 1
-        matrixD = [[0] * m] * n
-        matrixP = [[0] * m] * n
-        matrixQ = [[0] * m] * n
+        matrixD = [[0 for _ in range(m)] for _ in range(n)]
+        matrixP = [[0 for _ in range(m)] for _ in range(n)]
+        matrixQ = [[0 for _ in range(m)] for _ in range(n)]
 
         # initalize matrix
         for i in range(1, n):
@@ -83,8 +84,9 @@ class Gotoh():
                     seqA[i - 1],
                     seqB[j - 1]
                 )
+        self.matrices = [matrixD, matrixP, matrixQ]
 
-        return [matrixD, matrixP, matrixQ]
+        return self.matrices
 
     def __computeP(self, valD, valP, beta):
         """
@@ -169,6 +171,8 @@ class Gotoh():
         computedAlignment = []
         for trace in self.traceStack:
             computedAlignment.append(self.__buildAlignment(trace, seqA, seqB))
+
+        return computedAlignment
 
     def __tracebackD(self, matrices):
         """

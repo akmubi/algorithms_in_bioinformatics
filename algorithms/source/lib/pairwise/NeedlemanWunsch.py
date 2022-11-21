@@ -11,7 +11,7 @@
 #
 # Needleman-Wunsch algorithm
 import sys
-from helper import PairwiseAlignmentHelper as helper
+from lib.helper.PairwiseAlignmentHelper import PairwiseAlignmentHelper as helper
 
 class NeedlemanWunsch():
     """
@@ -33,6 +33,7 @@ class NeedlemanWunsch():
         self.seqA = seqA
         self.seqB = seqB
         self.maxSolutions = maxSolutions
+        self.matrix = [[0 for _ in range(len(seqB) + 1)] for _ in range(len(seqA) + 1)]
 
     def __score(self, a, b):
         return helper.weightFunctionDifference2(a, b)
@@ -43,24 +44,27 @@ class NeedlemanWunsch():
                 seqA: A string with the first DNA sequence.
                 seqB: A string with the second DNA sequence.
         """
-        matrix = [[0 for i in range(len(seqB) + 1)] for j in range(len(seqA) + 1)]
+        n = len(seqA) + 1
+        m = len(seqB) + 1
 
         # initalize matrix
-        for i in range(1, len(seqA) + 1):
-            matrix[i][0] = matrix[i - 1][0] + self.__score(seqA[i - 1], '-')
-        for i in range(1, len(seqB) + 1):
-            matrix[0][i] = matrix[0][i - 1] + self.__score('-', seqB[i - 1])
+        for i in range(1, n):
+            self.matrix[i][0] = self.matrix[i - 1][0] + self.__score(seqA[i - 1], '-')
 
-        for i in range(1, len(seqA) + 1):
-            for j in range(1, len(seqB) + 1):
-                matrix[i][j] = self.__computeMaximum(
+        for j in range(1, m):
+            self.matrix[0][j] = self.matrix[0][j - 1] + self.__score('-', seqB[j - 1])
+
+        for i in range(1, n):
+            for j in range(1, m):
+                self.matrix[i][j] = self.__computeMaximum(
                     seqA[i - 1],
                     seqB[j - 1],
-                    matrix[i][j - 1],
-                    matrix[i - 1][j],
-                    matrix[i - 1][j - 1]
+                    self.matrix[i][j - 1],
+                    self.matrix[i - 1][j],
+                    self.matrix[i - 1][j - 1]
                 )
-        return matrix
+
+        return self.matrix
 
     def __computeMaximum(self, charA, charB, predLeft, predUp, predDiagonal):
         """
@@ -160,7 +164,7 @@ class NeedlemanWunsch():
 
             currentTrace += 1
 
-            print(f'\rComputing traces: {currentTrace:05}/{len(traceIndices):05}', end='')
+            print(f'\rTraces processed: {currentTrace:05}/{len(traceIndices):05}', end='')
 
             # done if we have traversed all traces
             if currentTrace >= len(traceIndices):
