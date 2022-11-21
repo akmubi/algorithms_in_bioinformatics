@@ -36,12 +36,12 @@ class Gotoh():
         """
         self.seqA = seqA
         self.seqB = seqB
-        self.__beta = self.__cost(1) - self.__cost(0)
-        self.__i = 0
-        self.__j = 0
-        self.__traceStack = [[]]
-        self.__traceID = 0
-        self.__traceIndices = [[]]
+        self.beta = self.__cost(1) - self.__cost(0)
+        self.i = 0
+        self.j = 0
+        self.traceStack = [[]]
+        self.currentTrace = 0
+        self.traceIndices = [[]]
 
     def __computeMatrices(self, seqA, seqB, beta):
         """
@@ -133,18 +133,18 @@ class Gotoh():
         """
             Computes the traceback for the Gotoh algorithm.
         """
-        self.__j = len(matrices[0][0]) - 1
-        self.__i = len(matrices[0]) - 1
-        self.__traceID = 0
-        self.__traceIndices[self.__traceID] = [
-            self.__i,
-            self.__j,
+        self.j = len(matrices[0][0]) - 1
+        self.i = len(matrices[0]) - 1
+        self.currentTrace = 0
+        self.traceIndices[self.currentTrace] = [
+            self.i,
+            self.j,
             helper.matrixIndexD
         ]
         done = False
         while not done:
-            currentIndex = self.__traceIndices[self.__traceID]
-            while self.__i > 0 or self.__j > 0:
+            currentIndex = self.traceIndices[self.currentTrace]
+            while self.i > 0 or self.j > 0:
                 if currentIndex[2] == helper.matrixIndexD:
                     self.__tracebackD(matrices)
 
@@ -154,31 +154,31 @@ class Gotoh():
                 elif currentIndex[2] == helper.matrixIndexQ:
                     self.__tracebackQ(matrices)
 
-                self.__i = currentIndex[0]
-                self.__j = currentIndex[1]
+                self.i = currentIndex[0]
+                self.j = currentIndex[1]
             done = True
 
-            for index in self.__traceIndices:
+            for index in self.traceIndices:
                 if index[0] > 0 or index[1] > 0:
-                    self.__traceID = index
+                    self.currentTrace = index
                     done = False
                     break
-            self.__i = currentIndex[0]
-            self.__j = currentIndex[1]
+            self.i = currentIndex[0]
+            self.j = currentIndex[1]
 
         computedAlignment = []
-        for trace in self.__traceStack:
+        for trace in self.traceStack:
             computedAlignment.append(self.__buildAlignment(trace, seqA, seqB))
 
     def __tracebackD(self, matrices):
         """
             Computes the traceback for a cell of the matrix D.
         """
-        a = self.seqA[self.__i - 1]
-        b = self.seqB[self.__j - 1]
+        a = self.seqA[self.i - 1]
+        b = self.seqB[self.j - 1]
         traceSplit = False
-        i = pathVariableI = self.__i
-        j = pathVariableJ = self.__j
+        i = pathVariableI = self.i
+        j = pathVariableJ = self.j
 
         matrixD = matrices[helper.matrixIndexD]
         matrixQ = matrices[helper.matrixIndexQ]
@@ -187,36 +187,36 @@ class Gotoh():
         if j > 0 and i > 0:
             if matrixD[i][j] == \
                matrixD[i-1][j-1] + self.__score(a,b):
-                self.__traceStack[self.__traceID].append(helper.diagonalD)
+                self.traceStack[self.currentTrace].append(helper.diagonalD)
                 pathVariableI -= 1
                 pathVariableJ -= 1
                 traceSplit = True
 
             if matrixD[i][j] == matrixQ[i][j]:
                 if not traceSplit:
-                    self.__traceStack[self.__traceID].append(helper.dotQ)
-                    self.__traceIndices[self.__traceID][2] = helper.matrixIndexQ
+                    self.traceStack[self.currentTrace].append(helper.dotQ)
+                    self.traceIndices[self.currentTrace][2] = helper.matrixIndexQ
                     traceSplit = True
-                elif [i, j] not in self.__traceIndices:
-                    self.__traceStack.append(self.__traceStack[self.__traceID][0:-1])
-                    self.__traceStack[len(self.__traceStack) - 1].append(helper.dotQ)
-                    self.__traceIndices.append([i, j, helper.matrixIndexQ])
+                elif [i, j] not in self.traceIndices:
+                    self.traceStack.append(self.traceStack[self.currentTrace][0:-1])
+                    self.traceStack[len(self.traceStack) - 1].append(helper.dotQ)
+                    self.traceIndices.append([i, j, helper.matrixIndexQ])
 
             if matrixD[i][j] == matrixP[i][j]:
                 if not traceSplit:
-                    self.__traceStack[self.__traceID].append(helper.dotP)
-                    self.__traceIndices[self.__traceID][2] = helper.matrixIndexP
-                elif [i, j] not in self.__traceIndices:
-                    self.__traceStack.append(self.__traceStack[self.__traceID][0:-1])
-                    self.__traceStack[len(self.__traceStack)-1].append(helper.dotP)
-                    self.__traceIndices.append([i, j, helper.matrixIndexP])
+                    self.traceStack[self.currentTrace].append(helper.dotP)
+                    self.traceIndices[self.currentTrace][2] = helper.matrixIndexP
+                elif [i, j] not in self.traceIndices:
+                    self.traceStack.append(self.traceStack[self.currentTrace][0:-1])
+                    self.traceStack[len(self.traceStack)-1].append(helper.dotP)
+                    self.traceIndices.append([i, j, helper.matrixIndexP])
 
         if i == 0:
-            self.__traceStack[self.__traceID].append(helper.leftD)
+            self.traceStack[self.currentTrace].append(helper.leftD)
             pathVariableJ -= 1
 
         if j == 0:
-            self.__traceStack[self.__traceID].append(helper.upD)
+            self.traceStack[self.currentTrace].append(helper.upD)
             pathVariableI -= 1
 
         if i <= 0 or pathVariableI <= 0:
@@ -225,8 +225,8 @@ class Gotoh():
         if j <= 0 or pathVariableJ <= 0:
             pathVariableJ = 0
 
-        self.__traceIndices[self.__traceID][0] = pathVariableI
-        self.__traceIndices[self.__traceID][1] = pathVariableJ
+        self.traceIndices[self.currentTrace][0] = pathVariableI
+        self.traceIndices[self.currentTrace][1] = pathVariableJ
 
     def __tracebackP(self, matrices):
         """
@@ -236,25 +236,25 @@ class Gotoh():
         matrixP = matrices[helper.matrixIndexP]
         matrixD = matrices[helper.matrixIndexD]
 
-        i, j = self.__i, self.__j
+        i, j = self.i, self.j
 
         if i > 0:
             if matrixP[i][j] == matrixD[i - 1][j] + self.__cost(1):
-                self.__traceStack[self.__traceID].append(helper.upD)
-                self.__traceIndices[self.__traceID][0] -= 1
-                self.__traceIndices[self.__traceID][2] = helper.matrixIndexD
+                self.traceStack[self.currentTrace].append(helper.upD)
+                self.traceIndices[self.currentTrace][0] -= 1
+                self.traceIndices[self.currentTrace][2] = helper.matrixIndexD
                 traceSplit = True
 
-            if matrixP[i][j] == matrixP[i - 1][j] + self.__beta:
+            if matrixP[i][j] == matrixP[i - 1][j] + self.beta:
                 if not traceSplit:
-                    self.__traceStack[self.__traceID].append(helper.upP)
-                    self.__traceIndices[self.__traceID][0] -= 1
-                    self.__traceIndices[self.__traceID][2] = helper.matrixIndexP
+                    self.traceStack[self.currentTrace].append(helper.upP)
+                    self.traceIndices[self.currentTrace][0] -= 1
+                    self.traceIndices[self.currentTrace][2] = helper.matrixIndexP
 
-                elif [i - 1, j] not in self.__traceIndices:
-                    self.__traceStack.append(self.__traceStack[self.__traceID][0:-1])
-                    self.__traceStack[len(self.__traceStack)-1].append(helper.upP)
-                    self.__traceIndices.append([i - 1, j, helper.matrixIndexP])
+                elif [i - 1, j] not in self.traceIndices:
+                    self.traceStack.append(self.traceStack[self.currentTrace][0:-1])
+                    self.traceStack[len(self.traceStack)-1].append(helper.upP)
+                    self.traceIndices.append([i - 1, j, helper.matrixIndexP])
 
     def __tracebackQ(self, matrices):
         """
@@ -264,25 +264,25 @@ class Gotoh():
         matrixQ = matrices[helper.matrixIndexQ]
         matrixD = matrices[helper.matrixIndexD]
 
-        i, j = self.__i, self.__j
+        i, j = self.i, self.j
 
         if j > 0:
             if matrixQ[i][j] == matrixD[i][j-1] + self.__cost(1):
-                self.__traceStack[self.__traceID].append(helper.leftD)
-                self.__traceIndices[self.__traceID][1] -= 1
-                self.__traceIndices[self.__traceID][2] = helper.matrixIndexD
+                self.traceStack[self.currentTrace].append(helper.leftD)
+                self.traceIndices[self.currentTrace][1] -= 1
+                self.traceIndices[self.currentTrace][2] = helper.matrixIndexD
                 traceSplit = True
 
-            if matrixQ[i][j] == matrixQ[i][j-1] + self.__beta:
+            if matrixQ[i][j] == matrixQ[i][j-1] + self.beta:
                 if not traceSplit:
-                    self.__traceStack[self.__traceID].append(helper.leftQ)
-                    self.__traceIndices[self.__traceID][1] -= 1
-                    self.__traceIndices[self.__traceID][2] = helper.matrixIndexQ
+                    self.traceStack[self.currentTrace].append(helper.leftQ)
+                    self.traceIndices[self.currentTrace][1] -= 1
+                    self.traceIndices[self.currentTrace][2] = helper.matrixIndexQ
 
-                elif [i, j - 1] not in self.__traceIndices:
-                    self.__traceStack.append(self.__traceStack[self.__traceID][0:-1])
-                    self.__traceStack[len(self.__traceStack)-1].append(helper.leftQ)
-                    self.__traceIndices.append([i , j - 1, helper.matrixIndexQ])
+                elif [i, j - 1] not in self.traceIndices:
+                    self.traceStack.append(self.traceStack[self.currentTrace][0:-1])
+                    self.traceStack[len(self.traceStack)-1].append(helper.leftQ)
+                    self.traceIndices.append([i , j - 1, helper.matrixIndexQ])
 
     def __buildAlignment(self, traceStack, seqA, seqB):
         """
@@ -292,16 +292,16 @@ class Gotoh():
         i, j = 0, 0
         alignmentA, alignmentB = '', ''
 
-        for element in traceStack[::-1]:
-            if element == helper.leftQ or element == helper.leftD:
-                alignmentA += "-"
+        for direction in traceStack[::-1]:
+            if direction == helper.leftQ or direction == helper.leftD:
+                alignmentA += '-'
                 alignmentB += seqB[j]
                 j += 1
-            elif element == helper.upP or element == helper.upD:
+            elif direction == helper.upP or direction == helper.upD:
                 alignmentA += seqA[i]
-                alignmentB += "-"
+                alignmentB += '-'
                 i += 1
-            elif element == helper.diagonalD:
+            elif direction == helper.diagonalD:
                 alignmentA += seqA[i]
                 alignmentB += seqB[j]
                 i += 1
@@ -328,7 +328,7 @@ class Gotoh():
             self.__computeMatrices(
                 self.seqA,
                 self.seqB,
-                self.__beta
+                self.beta
             )
         )
 

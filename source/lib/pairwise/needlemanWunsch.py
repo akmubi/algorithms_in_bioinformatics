@@ -160,12 +160,16 @@ class NeedlemanWunsch():
 
             currentTrace += 1
 
+            print(f'\rComputing traces: {currentTrace:05}/{len(traceIndices):05}', end='')
+
             # done if we have traversed all traces
             if currentTrace >= len(traceIndices):
                 done = True
             # or got exact amount of solutions
             if self.maxSolutions != -1 and solutionCount >= self.maxSolutions:
                 done = True
+
+        print()
 
         computedAlignment = []
         resultTraces = None
@@ -189,7 +193,7 @@ class NeedlemanWunsch():
         alignmentA, alignmentB = '', ''
 
         # iterate backwards
-        for num, direction in enumerate(traceStack[::-1]):
+        for direction in traceStack[::-1]:
             if direction == helper.left:
                 alignmentA += '-'
                 alignmentB += seqB[j]

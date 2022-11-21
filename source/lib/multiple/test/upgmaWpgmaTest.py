@@ -26,25 +26,25 @@ class UpgmaWpgmaTestClass(unittest.TestCase):
         distanceDictionary = {"0 1": 1, "0 2": 2, "0 3": 3, "1 2": 2, "1 3": 3, "1 4": 3}
         upgma = UpgmaWpgma(distanceDictionary, 4)
         expectedValue = ["0 1", 1]
-        self.assertEqual(expectedValue, upgma.compute_minimal_distance())
+        self.assertEqual(expectedValue, upgma.computeMinDistance())
 
     def test_computeClustering(self):
         distanceDictionary = {"0 1": 1, "0 2": 2, "0 3": 3, "1 2": 2, "1 3": 3, "2 3": 3}
         upgma = UpgmaWpgma(distanceDictionary, 4)
         expectedValue = {"0 1": 4, "2 4": 5, "3 5": 6}
-        upgma.compute_clustering()
-        print upgma.get_newick_tree()
+        upgma.computeClustering()
+        print upgma.getNewickTree()
         self.assertEqual(expectedValue, upgma.mapping)
 
-        print upgma.get_newick_tree(with_edge_weights=True)
+        print upgma.getNewickTree(widthEdgeWeights=True)
         distanceDictionary = {"0 1": 6, "0 2": 10, "0 3": 10, "0 4": 10, "1 2": 10, "1 3": 10, "1 4": 10, "2 3": 2,
                               "2 4": 6, "3 4": 6}
         upgma2 = UpgmaWpgma(distanceDictionary, 5)
         expectedValue = {"2 3": 5, "0 1": 7, "4 5": 6, "6 7": 8}
-        upgma2.compute_clustering()
-        print upgma2.get_newick_tree(with_edge_weights=False)
+        upgma2.computeClustering()
+        print upgma2.getNewickTree(widthEdgeWeights=False)
         self.assertEqual(expectedValue, upgma2.mapping)
-        print upgma2.get_newick_tree(with_edge_weights=True)
+        print upgma2.getNewickTree(widthEdgeWeights=True)
 
 
 
@@ -54,7 +54,7 @@ class UpgmaWpgmaTestClass(unittest.TestCase):
         distanceDictionary = {}
         upgma = UpgmaWpgma(distanceDictionary, 5)
         upgma.mapping = mapping
-        upgma.get_newick_tree()
+        upgma.getNewickTree()
 
 
 if __name__ == "__main__":

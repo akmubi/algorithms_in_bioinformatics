@@ -16,7 +16,7 @@ lib_path = os.path.abspath('../../')
 sys.path.append(lib_path)
 
 from pairwise import Gotoh
-from helper import PairwiseAlignmentHelper as pah
+from helper import PairwiseAlignmentHelper as helper
 from helper import MathHelper as mathHelper
 class GotohTestClass(unittest.TestCase):
     """Test class to test the correct computation of the Gotoh algorithm."""
@@ -29,11 +29,11 @@ class GotohTestClass(unittest.TestCase):
        	computedMatrixQ = [[0 for i in range(len(b)+1) ] for j in range(len(a)+1)]
         # initalize matrix
         for i in range(1, len(a)+1):
-            computedMatrixD[i][0] = pah().gapCost(i)
+            computedMatrixD[i][0] = helper().gapCost(i)
             computedMatrixP[i][0] = mathHelper.NaN
             computedMatrixQ[i][0] = mathHelper.Inf
         for i in range(1, len(b)+1):
-            computedMatrixD[0][i] = pah().gapCost(i)
+            computedMatrixD[0][i] = helper().gapCost(i)
             computedMatrixP[0][i] = mathHelper.Inf
             computedMatrixQ[0][i] = mathHelper.NaN
 

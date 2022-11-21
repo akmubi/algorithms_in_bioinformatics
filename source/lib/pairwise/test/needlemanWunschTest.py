@@ -18,7 +18,7 @@ lib_path = os.path.abspath('../../')
 sys.path.append(lib_path)
 
 from pairwise import NeedlemanWunsch as nw
-from helper import PairwiseAlignmentHelper as pah
+from helper import PairwiseAlignmentHelper as helper
 
 class NeedlemanWunschTestClass(unittest.TestCase):
     """Class to test the correctness of the computation for the class NeedlemanWunsch."""
@@ -30,9 +30,9 @@ class NeedlemanWunschTestClass(unittest.TestCase):
 
         # initalize matrix
         for i in range(1, len(a)+1):
-            computedMatrix[i][0] = computedMatrix[i-1][0] + pah().weightFunctionDifference("", a[i-1])
+            computedMatrix[i][0] = computedMatrix[i-1][0] + helper().weightFunctionDifference("", a[i-1])
         for i in range(1, len(b)+1):
-            computedMatrix[0][i] = computedMatrix[0][i-1] + pah().weightFunctionDifference("", b[i-1])
+            computedMatrix[0][i] = computedMatrix[0][i-1] + helper().weightFunctionDifference("", b[i-1])
 
         # define values that should be computed by Needleman-Wunsch algorithm
         computedMatrix[1][1] = 0
@@ -44,7 +44,7 @@ class NeedlemanWunschTestClass(unittest.TestCase):
         computedMatrix[3][2] = 1
 
         # check if the values computed by Needleman-Wunsch are correct
-        self.assertEqual(computedMatrix, nw().compute_matrix(a, b, pah().weightFunctionDifference))
+        self.assertEqual(computedMatrix, nw().compute_matrix(a, b, helper().weightFunctionDifference))
 
     def test_traceback(self):
         """Test of the traceback computation."""
@@ -52,17 +52,17 @@ class NeedlemanWunschTestClass(unittest.TestCase):
         a = "AGC"
         b = "AC"
         computedAlignment = [["AGC", "A-C"]]
-        computedMatrix = nw().compute_matrix(a, b, pah().weightFunctionDifference)
+        computedMatrix = nw().compute_matrix(a, b, helper().weightFunctionDifference)
         self.assertEqual(computedAlignment,
-                nw().__traceback(a, b, computedMatrix,pah().weightFunctionDifference))
+                nw().__traceback(a, b, computedMatrix,helper().weightFunctionDifference))
 
         # test case with a multiple traceback
         a = "AT"
         b = "AAGT"
-        computedMatrix = nw().compute_matrix(a, b, pah().weightFunctionDifference)
+        computedMatrix = nw().compute_matrix(a, b, helper().weightFunctionDifference)
         computedAlignment = [["A--T","AAGT"], ["-A-T","AAGT"]]
         self.assertEqual(computedAlignment,
-                nw().__traceback(a, b, computedMatrix,pah().weightFunctionDifference))
+                nw().__traceback(a, b, computedMatrix,helper().weightFunctionDifference))
 
 if __name__ == "__main__":
     unittest.main() # run all tests

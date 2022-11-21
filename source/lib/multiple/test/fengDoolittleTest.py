@@ -30,12 +30,12 @@ class FengDoolittleTestClass(unittest.TestCase):
         expectedAlignments = [["AC-CAT", "ACGGAT"], ["ACGGAT", "AACCAT"], ["-ACCAT", "AACCAT"]]
         fd = FengDoolittle(sequences, "weightFunctionDifference", "pam250")
         fd.computeAlignments()
-        fd.computeDistanceDictionary()
+        fd.__computeDistanceDict()
     def test_computeOrderOfSequencesToAlign(self):
         sequences = ["ACTG", "AT", "ACG"]
         fd = FengDoolittle(sequences, "weightFunctionDifference", "pam250")
         fd.computeAlignments()
-        fd.computeDistanceDictionary()
+        fd.__computeDistanceDict()
         fd.buildTree()
         # print "NewickTree: ",fd.newickTree
         expectedResult = [[[0],[2]], [[0,2],[1]]]
@@ -56,4 +56,4 @@ class FengDoolittleTestClass(unittest.TestCase):
         fd2.computeMultipleAlignment()
         self.assertEqual(expectedResult, fd2.computeMultipleAlignment())
 if __name__ == "__main__":
-    unittest.main() # run all tests     
+    unittest.main() # run all tests

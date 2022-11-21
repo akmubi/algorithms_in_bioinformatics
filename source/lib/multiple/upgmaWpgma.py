@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python3
 # Copyright 2015 Joachim Wolff
 # Programming Course: Algorithms in Bioinformatics
 # Tutors: Robert Kleinkauf, Omer Alkhnbashi
@@ -8,192 +8,251 @@
 # Department of Computer Science
 # Faculty of Engineering
 # Albert-Ludwig-University Freiburg im Breisgau
-
-from helper import MathHelper
-
+import math
 
 class UpgmaWpgma():
-    """Upgma/Wpgma is a clustering method to generate phylogenetic trees. """
+    """
+        Upgma/Wpgma is a clustering method to generate phylogenetic trees.
+    """
 
-    def __init__(self, distance_dictionary, node_count, upgma_wpgma=True, sequence_size_mapping={}):
-        """To initalize a object of this class, please define the following:
-                distance_dictionary:    A dictionary with the distance between two sequences.
-                                        Should have the form \"Key0 key1\":distance. The key0 and key1 have to be integers.
-                node_count:             The number of sequences.
-                upgma_wpgma:            If True, the upgma weighting is used, if False, wpgma.
-                sequence_size_mapping:  Only necessary if wpgma is executed. It defines the size of each sequence.
-                                        Should have the form: \"Key:len(sequence)\""""
-        self.distance_dictionary = distance_dictionary
+    def __init__(self,
+                 distances,
+                 nodeCount,
+                 useUpgma=True,
+                 sequenceSizeMapping={}):
+        """
+            To initalize a object of this class, please define the following:
+            distances:           A dictionary with the distance between two
+                                 sequences. Should have the form
+                                 'Key0 Key1':distance. The key0 and key1 have
+                                 to be integers.
+            nodeCount:           The number of sequences.
+            useUpgma:            If True, the upgma weighting is used,
+                                 if False, wpgma.
+            sequenceSizeMapping: Only necessary if wpgma is executed. It
+                                 defines the size of each sequence. Should
+                                 have the form: 'Key:len(sequence)'
+        """
+        self.distances = distances
         self.mapping = {}
-        self.node_count = node_count
-        self.number_of_nodes = node_count
-        self.upgma_wpgma = upgma_wpgma
-        self.sequence_size_mapping = sequence_size_mapping
-        self.edge_weight = {}
+        self.nodeCount = nodeCount
+        self.numNodes = nodeCount
+        self.useUpgma = useUpgma
+        self.seqToSize = sequenceSizeMapping
+        self.edgeWeight = {}
 
-    def compute_clustering(self):
-        """This function computes the clustering to get the phylogenetic tree."""
-        computation_is_done = False
+    def computeClustering(self):
+        """
+            This function computes the clustering to get the phylogenetic tree.
+        """
+        done = False
         j = 0
-        while not computation_is_done:
+        while not done:
             j += 1
-            minimum_cluster = self.compute_minimal_distance()
-            nodes = minimum_cluster[0].split(" ")
+            minKey, minValue = self.computeMinDistance()
+            nodes = minKey.split(' ') # ['key0', 'key1']
+
             if len(nodes) > 1:
-                self.mapping[minimum_cluster[0]] = self.node_count
-                self.compute_edge_weight(minimum_cluster[1], nodes)
+                self.mapping[minKey] = self.nodeCount
+                self.computeEdgeWeight(minValue, nodes)
 
-                if minimum_cluster[0] in self.distance_dictionary:
-                    del self.distance_dictionary[minimum_cluster[0]]
+                if minKey in self.distances:
+                    del self.distances[minKey]
 
-                for i in range(0, self.node_count + 1):
-                    key_value_0 = nodes[0] + " " + str(i)
-                    key_value_1 = nodes[1] + " " + str(i)
-                    key_value = self.key_in_dictionary(key_value_0, key_value_1)
-                    if key_value[0] != "":
-                        key_for_new_cluster_distance = str(i) + " " + str(self.node_count)
-                        self.distance_dictionary[key_for_new_cluster_distance] = self.compute_new_distance(
-                            self.distance_dictionary[key_value[0]], self.distance_dictionary[key_value[1]], nodes[0],
-                            nodes[1])
-                        # try:
-                        # except:
-                        #     "something wring"
-                            # "something wring"
-                        if not self.upgma_wpgma:
-                            self.sequence_size_mapping[self.node_count] = self.sequence_size_mapping[int(nodes[0])] + \
-                                                                          self.sequence_size_mapping[int(nodes[1])]
-                        del self.distance_dictionary[key_value[0]]
-                        del self.distance_dictionary[key_value[1]]
-                self.node_count += 1
+                for i in range(0, self.nodeCount + 1):
+                    keys = self.keyInDict(f'{nodes[0]} {i}', f'{nodes[1]} {i}')
+                    if keys[0] != '':
+                        # new distance
+                        self.distances[f'{i} {self.nodeCount}'] = \
+                            self.computeNewDistance(
+                                self.distances[keys[0]],
+                                self.distances[keys[1]],
+                                nodes[0],
+                                nodes[1]
+                            )
+                        if not self.useUpgma:
+                            self.seqToSize[self.nodeCount] = \
+                                self.seqToSize[int(nodes[0])] + \
+                                self.seqToSize[int(nodes[1])]
+                        del self.distances[keys[0]]
+                        del self.distances[keys[1]]
+                self.nodeCount += 1
             else:
-                computation_is_done = True
+                done = True
 
-    def key_in_dictionary(self, key_value_0, key_value_1):
-        """Returns True if the given keys are in the distance dictionary, False otherwise.
-            key_value_0: The first key value.
-            key_value_1: The second key value."""
-        for i in range(0, 4):
-            if key_value_0 in self.distance_dictionary and key_value_1 in self.distance_dictionary:
-                return [key_value_0, key_value_1]
-            elif key_value_0[::-1] in self.distance_dictionary and key_value_1 in self.distance_dictionary:
-                return [key_value_0[::-1], key_value_1]
-            elif key_value_0 in self.distance_dictionary and key_value_1[::-1] in self.distance_dictionary:
-                return [key_value_0, key_value_1[::-1]]
-            elif key_value_0[::-1] in self.distance_dictionary and key_value_1[::-1] in self.distance_dictionary:
-                return [key_value_0[::-1], key_value_1[::-1]]
-            else:
-                return ["", ""]
+    def keyInDict(self, key1, key2):
+        """
+            Returns True if the given keys are in the distance dictionary,
+            False otherwise.
+            key1: The first key value.
+            key2: The second key value.
+        """
+        rkey1 = key1[::-1]
+        rkey2 = key2[::-1]
 
+        if key1 in self.distances and key2 in self.distances:
+            return [key1, key2]
 
-    def compute_minimal_distance(self):
-        """Returns the next two clusters for merging."""
-        minimum = ["", MathHelper.Inf]
-        for i in self.distance_dictionary:
-            if minimum[1] > self.distance_dictionary[i]:
-                minimum[0] = i
-                minimum[1] = self.distance_dictionary[i]
-        return minimum
+        elif rkey1 in self.distances and key2 in self.distances:
+            return [rkey1, key2]
 
-    def compute_new_distance(self, distance_a_x, distance_b_x, index_a, index_b):
-        """Returns the new distance between the new merged cluster and an other cluster.
-            distance_a_x:   The old distance between cluster a and x.
-            distance_b_x:   The old distance between cluster b and x.
-            index_a:        The index of a.
-            index_b:        The index of b."""
-        if self.upgma_wpgma:
-            return self.upgma_distance(distance_a_x, distance_b_x)
+        elif key1 in self.distances and rkey2 in self.distances:
+            return [key1, rkey2]
+
+        elif rkey1 in self.distances and rkey2 in self.distances:
+            return [rkey1, rkey2]
+
+        return ['', '']
+
+    def computeMinDistance(self):
+        """
+            Returns the next two clusters for merging.
+        """
+        minKey   = ''       # 'key0 key1'
+        minValue = math.inf # distance
+
+        for key, value in self.distances.items():
+            if value < minValue:
+                minValue = value
+                minKey = key
+
+        return minKey, minValue
+
+    def computeNewDistance(self, distanceAX, distanceBX, indexA, indexB):
+        """
+            Returns the new distance between the new merged cluster and
+            another cluster.
+            distanceAX: The old distance between cluster a and x.
+            distanceBX: The old distance between cluster b and x.
+            indexA:     The index of a.
+            indexB:     The index of b.
+        """
+        if self.useUpgma:
+            return self.upgmaDistance(distanceAX, distanceBX)
         else:
-            return self.wpgma_distance(distance_a_x, distance_b_x, self.sequence_size_mapping[int(index_a)],
-                                       self.sequence_size_mapping[int(index_b)])
+            return self.wpgmaDistance(
+                distanceAX,
+                distanceBX,
+                self.seqToSize[int(indexA)],
+                self.seqToSize[int(indexB)]
+            )
 
-    def upgma_distance(self, distance_a_x, distance_b_x):
-        """Returns the upgma-distance between the new merged cluster a and an other cluster x.
-            distance_a_x:   The old distance between cluster a and x.
-            distance_b_x:   The old distance between cluster b and x."""
-        return (distance_a_x + distance_b_x) / 2
+    def upgmaDistance(self, distanceAX, distanceBX):
+        """
+            Returns the upgma-distance between the new merged cluster a and
+            another cluster x.
+            distanceAX: The old distance between cluster a and x.
+            distanceBX: The old distance between cluster b and x.
+        """
+        return (distanceAX + distanceBX) / 2
 
-    def wpgma_distance(self, distance_a_x, distance_b_x, length_of_a, length_of_b):
-        """Returns the wpgma-distance between the new merged cluster a and an other cluster x.
-            distance_a_x:   The old distance between cluster a and x.
-            distance_b_x:   The old distance between cluster b and x.
-            length_of_a:        The index of a.
-            length_of_b:        The index of b."""
-        return (length_of_a * distance_a_x + length_of_b * distance_b_x) / (length_of_a + length_of_b)
+    def wpgmaDistance(self, distanceAX, distanceBX, lengthA, lengthB):
+        """
+            Returns the wpgma-distance between the new merged cluster a and
+            another cluster x.
+            distanceAX: The old distance between cluster a and x.
+            distanceBX: The old distance between cluster b and x.
+            lengthA:    The index of a.
+            lengthB:    The index of b.
+        """
+        return (lengthA * distanceAX + lengthB * distanceBX) / (lengthA + lengthB)
 
-    def compute_edge_weight(self, weight, nodes):
-        """This method computes the new edge weight for a new cluster.
-            weight: The edge weight equal to the distance of the to merged clusters.
-            nodes:  A list containing the indices of the two merged clusters."""
-        node0= int(nodes[0])
-        node1 = int(nodes[1])
-        if node0 < self.number_of_nodes and node1 < self.number_of_nodes:
-            # self.edge_weight[self.node_count] = 1
-            self.edge_weight[self.node_count] = [weight / float(2), weight / float(2)]
-        elif node0 < self.number_of_nodes:
-            weightToLeafs = self.edge_weight[node1][1]
-            self.edge_weight[self.node_count] = [weight / float(2) - weightToLeafs, weight / float(2)]
-        elif node1 < self.number_of_nodes:
-            weightToLeafs = self.edge_weight[node0][1]
-            self.edge_weight[self.node_count] = [weight / float(2), weight / float(2) - weightToLeafs]
+    def computeEdgeWeight(self, weight, nodes):
+        """
+            This method computes the new edge weight for a new cluster.
+            weight: The edge weight equal to the distance of the to merged
+                    clusters.
+            nodes:  A list containing the indices of the two merged clusters.
+        """
+        node0, node1 = int(nodes[0]), int(nodes[1])
+
+        if node0 < self.numNodes and node1 < self.numNodes:
+            self.edgeWeight[self.nodeCount] = [
+                weight / 2.0,
+                weight / 2.0,
+            ]
+
+        elif node0 < self.numNodes:
+            self.edgeWeight[self.nodeCount] = [
+                weight / 2.0,
+                weight / 2.0 - self.edgeWeight[node1][1],
+            ]
+
+        elif node1 < self.numNodes:
+            self.edgeWeight[self.nodeCount] = [
+                weight / 2.0 - self.edgeWeight[node0][1],
+                weight / 2.0,
+            ]
+
         else:
-            weightToLeafs = self.edge_weight[node0][1]
-            weightToLeafs1 = self.edge_weight[node1][1]
-            self.edge_weight[self.node_count] = [weight / float(2) - weightToLeafs, weight / float(2) - weightToLeafs1]
+            self.edgeWeight[self.nodeCount] = [
+                weight / 2.0 - self.edgeWeight[node0][1],
+                weight / 2.0 - self.edgeWeight[node1][1],
+            ]
 
-
-    def get_newick_tree(self, with_edge_weights=False):
-        """Returns the computed cluster in the Newick tree format.
-            with_edge_weights:  If True, edge weights are part of the output, if False, not."""
+    def getNewickTree(self, widthEdgeWeights=False):
+        """
+            Returns the computed cluster in the Newick tree format.
+            widthEdgeWeights: If True, edge weights are part of the output,
+                              if False, not.
+        """
         # expectedValue = {"2 3": 5, "0 1": 7, "4 5": 6, "6 7": 8}
-        newick_dictionary = dict([[v, k] for k, v in self.mapping.items()])
-        if with_edge_weights:
-            for i in newick_dictionary:
-                if i in self.edge_weight:
-                    nodesWithWeights = newick_dictionary[i].split(" ")
-                    nodesWithWeights[0] = nodesWithWeights[0].strip(" ")
-                    nodesWithWeights[0] += ":" + str(self.edge_weight[i][1])
-                    nodesWithWeights[1] = nodesWithWeights[1].strip(" ")
-                    nodesWithWeights[1] += ":" + str(self.edge_weight[i][0])
-                    newick_dictionary[i] = nodesWithWeights[0] + " " + nodesWithWeights[1]
-            self.mapping = dict([[v, k] for k, v in newick_dictionary.items()])
+        newickDict = dict([[v, k] for k, v in self.mapping.items()])
+        if widthEdgeWeights:
+            for i in newickDict:
+                if i in self.edgeWeight:
+                    nodesWithWeights = newickDict[i].split(' ')
+                    nodesWithWeights[0] = nodesWithWeights[0].strip(' ')
+                    nodesWithWeights[0] += f':{self.edgeWeight[i][1]}'
+                    nodesWithWeights[1] = nodesWithWeights[1].strip(' ')
+                    nodesWithWeights[1] += f':{self.edgeWeight[i][0]}'
+                    newickDict[i] = f'{nodesWithWeights[0]} {nodesWithWeights[1]}'
+            self.mapping = dict([[v, k] for k, v in newickDict.items()])
+
         for i in self.mapping:
             index = -1
-            leading_sequence = True
-            for j in newick_dictionary:
-                string_to_find = " " + str(self.mapping[i]) + ""
-                if newick_dictionary[j].find(string_to_find) != -1:
+            leadingSequence = True
+            for j in newickDict:
+                stringToFind = f' {self.mapping[i]}'# + ''
+                if newickDict[j].find(stringToFind) != -1:
                     index = j
-                    leading_sequence = False
+                    leadingSequence = False
                     break
-                string_to_find = str(self.mapping[i]) + " "
-                if newick_dictionary[j].find(string_to_find) != -1:
+
+                stringToFind = f'{self.mapping[i]} '
+                if newickDict[j].find(stringToFind) != -1:
                     index = j
-                    leading_sequence = True
+                    leadingSequence = True
                     break
-                if with_edge_weights:
-                    string_to_find = str(self.mapping[i]) + ":"
+
+                if widthEdgeWeights:
+                    stringToFind = f'{self.mapping[i]}:'
                 else:
-                    string_to_find = str(self.mapping[i]) + ","
-                if newick_dictionary[j].find(string_to_find) != -1:
+                    stringToFind = f'{self.mapping[i]},'
+
+                if newickDict[j].find(stringToFind) != -1:
                     index = j
-                    leading_sequence = True
+                    leadingSequence = True
                     break
-                string_to_find = "," + str(self.mapping[i])
-                if newick_dictionary[j].find(string_to_find) != -1:
+
+                stringToFind = f',{self.mapping[i]}'
+                if newickDict[j].find(stringToFind) != -1:
                     index = j
-                    leading_sequence = False
+                    leadingSequence = False
                     break
 
             if index != -1:
-                if leading_sequence:
-                    stringToReplace = "(" + newick_dictionary[int(string_to_find.strip().strip(",").strip(":"))].replace(" ",
-                                                                                                              ",") + "):"
+                key = int(stringToFind.strip().strip(',').strip(':'))
+                value = newickDict[key].replace(' ', ',')
+                if leadingSequence:
+                    stringToReplace = f'({value}):'
                 else:
-                    stringToReplace = ",(" + newick_dictionary[int(string_to_find.strip().strip(",").strip(":"))].replace(" ",
-                                                                                                               ",") + ")"
-                newick_dictionary[index] = newick_dictionary[index].replace(string_to_find, stringToReplace).replace(
-                    ",,", ",")
-                del newick_dictionary[int(string_to_find.strip().strip(",").strip(":"))]
+                    stringToReplace = f',({value})'
 
-        for i in newick_dictionary:
-            return "(" + newick_dictionary[i] + ")"
+                newickDict[index] = \
+                    newickDict[index].replace(stringToFind, stringToReplace) \
+                                     .replace(',,', ',')
+                del newickDict[key]
+
+        for i in newickDict:
+            return f'({newickDict[i]})'

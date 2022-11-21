@@ -9,7 +9,7 @@
 # Faculty of Engineering
 # Albert-Ludwig-University Freiburg im Breisgau
 #
-from helper import PairwiseAlignmentHelper as pah
+from helper import PairwiseAlignmentHelper as helper
 
 class MultipleAlignmentHelper():
     noGap = 0
@@ -20,46 +20,56 @@ class MultipleAlignmentHelper():
     gapBC = 5
     gapAC = 6
 
-    def weightFunctionDifference(self, a, b, c):
+    @staticmethod
+    def weightFunctionDifference(a, b, c):
         """
             Weight function with 0 if a==b==c, 1 if a==b, a==c or b==c, 2 else.
         """
-        if a == b == c:
+        # if a == b == c:
+        #     return 0
+        # elif a == b or b == c or a == c:
+        #     return 1
+        # else:
+        #     return 2
+
+        if a == '-' or b == '-' or c == '-':
+            if a == b != '-' or b == c != '-' or a == c != '-':
+                return 0
             return 0
+        elif a == b == c:
+            return 2
         elif a == b or b == c or a == c:
             return 1
         else:
-            return 2
+            return 0
 
     def createDataForUpgmaWpgma(self, sequences):
         """
             Preprocessing of the sequences for the upgm/wpgm algorithm.
         """
-        differenceDictionary = {}
-        sequenceToIdMapping = {}
-        sequenceToLengthMapping = {}
+        distances = {}
+        seqToIdMap = {}
+        seqToLengthMap = {}
 
         for id, sequence in enumerate(sequences):
-            sequenceToIdMapping[sequence] = id
-            sequenceToLengthMapping[id] = len(sequence)
+            seqToIdMap[sequence] = id
+            seqToLengthMap[id] = len(sequence)
 
         for i in range(len(sequences)):
             for j in range(i + 1, len(sequences)):
                 score = 0
-                for k in range(0, max(len(sequence[i])), len(sequences[j])):
-                    a, b = '-', '-'
-                    if k < len(sequences[i]):
-                        a = sequences[i][k]
-                    if k < len(sequences[j]):
-                        b = sequences[j][k]
-                    score += pah.weightFunctionDifference(a, b)
+                maxLength = max( len(sequence[i]), len(sequences[j]) )
+                for k in range(maxLength):
+                    a = sequences[i][k] if k < len(sequences[i]) else '-'
+                    b = sequences[j][k] if k < len(sequences[j]) else '-'
+                    score += helper.weightFunctionDifference(a, b)
 
-                differenceDictionary[f'{i} {j}'] = score
+                distances[f'{i} {j}'] = score
 
         return [
-            differenceDictionary,
-            sequenceToIdMapping,
-            sequenceToLengthMapping
+            distances,
+            seqToIdMap,
+            seqToLengthMap
         ]
 
 
