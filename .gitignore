@@ -2,5 +2,11 @@ __pycache__/
 .vscode/
 .idea/
 
+samples/
+
 *.fas
 *.txt
+*.graphml
+*.graphML
+*.newickTree
+*.dotBracket
