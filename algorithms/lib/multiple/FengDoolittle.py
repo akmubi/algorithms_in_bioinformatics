@@ -69,8 +69,6 @@ class FengDoolittle():
             key = f'{alignment[1]} {alignment[2]}'
             self.distances[key] = self.similarityToDistance(alignment[0])
 
-        print()
-
     def similarityToDistance(self, alignment):
         """
             Computes from the given similarity the distance measure.

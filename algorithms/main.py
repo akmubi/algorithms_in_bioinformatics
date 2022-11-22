@@ -355,7 +355,7 @@ def needlemanWunsch(sequences, outputFile, scoreFunction, maxSolutions=-1):
         default in file needlemanWunsch.fas.
         outputFile:         The path to the output file.
     """
-    print('\nThe following sequences are given:')
+    print('The following sequences are given:')
     for sequence in sequences:
         print(sequence)
 
@@ -378,7 +378,7 @@ def gotoh(sequences, scoreFunction, costFunction, outputFile='gotoh.fas'):
         g(x) = 2 + k. Stores the alignments per default in file gotoh.fas.
         outputFile: The path to the output file.
     """
-    print('\nThe following sequences are given:')
+    print('The following sequences are given:')
     for i in sequences:
         print(i)
 
@@ -402,7 +402,7 @@ def needlemanWunschN3(sequences, scoreFunction, outputFile, maxSolutions=-1):
     """
         Executes the Needleman-Wunsch algorithm with three sequences
     """
-    print('\nThe following sequences are given:')
+    print('The following sequences are given:')
     for sequence in sequences:
         print(sequence)
 
@@ -438,7 +438,7 @@ def upgmaWpgma(upgmaWpgma, sequences, outputFile, fileFormat):
         print(f'Need at least 2')
         sys.exit()
 
-    print('Computing clustering...')
+    print('\nComputing clustering...\n')
     data = mah.createDataForUpgmaWpgma(sequences)
 
     uwpgma = None
@@ -468,7 +468,7 @@ def nussinov(sequence, outputFile):
         sequence:   The RNA-sequnce as a list.
         outputFile: The name of the output file.
     """
-    print('\nThe following sequence is given:')
+    print('The following sequence is given:')
     print(sequence[0])
 
     nussinov = Nussinov(sequence[0])
