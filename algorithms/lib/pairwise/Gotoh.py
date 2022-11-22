@@ -160,11 +160,12 @@ class Gotoh():
                 self.j = currentIndex[1]
             done = True
 
-            for index in self.traceIndices:
+            for i, index in enumerate(self.traceIndices):
                 if index[0] > 0 or index[1] > 0:
-                    self.currentTrace = index
+                    self.currentTrace = i
                     done = False
                     break
+
             self.i = currentIndex[0]
             self.j = currentIndex[1]
 
