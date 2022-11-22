@@ -26,7 +26,9 @@ class Gotoh():
                  seqA,
                  seqB,
                  scoreFunction=helper.gotohDefaultScoreFunction,
-                 costFunction=helper.gotohDefaultCostFunction):
+                 costFunction=helper.gotohDefaultCostFunction,
+                 maxSolutions=-1,
+                 echo=True):
         """
             Initalize all variables and methods needed to compute the Gotoh algorithm.
                 seqA:      A string with the first DNA sequence.
@@ -34,6 +36,8 @@ class Gotoh():
         """
         self.__score = scoreFunction
         self.__cost  = costFunction
+        self.__echo = echo
+        self.maxSolutions = maxSolutions
         self.seqA = seqA
         self.seqB = seqB
         self.matrices = [[], [], []]
@@ -144,7 +148,10 @@ class Gotoh():
             helper.matrixIndexD
         ]
         done = False
+        solutionCount = 0
+
         while not done:
+            solutionCount +=1
             currentIndex = self.traceIndices[self.currentTrace]
             while self.i > 0 or self.j > 0:
                 if currentIndex[2] == helper.matrixIndexD:
@@ -160,14 +167,29 @@ class Gotoh():
                 self.j = currentIndex[1]
             done = True
 
-            for i, index in enumerate(self.traceIndices):
-                if index[0] > 0 or index[1] > 0:
-                    self.currentTrace = i
-                    done = False
-                    break
+            self.currentTrace += 1
 
-            self.i = currentIndex[0]
-            self.j = currentIndex[1]
+            if self.__echo:
+                print(f'\rTraces processed: {self.currentTrace:05}/{len(self.traceIndices):05}', end='')
+
+            # done if we have traversed all traces
+            if self.currentTrace >= len(self.traceIndices):
+                done = True
+            # or got exact amount of solutions
+            if self.maxSolutions != -1 and solutionCount >= self.maxSolutions:
+                done = True
+
+            # for i, index in enumerate(self.traceIndices):
+            #     if index[0] > 0 or index[1] > 0:
+            #         self.currentTrace = i
+            #         done = False
+            #         break
+
+            # self.i = currentIndex[0]
+            # self.j = currentIndex[1]
+
+        if self.__echo:
+            print()
 
         computedAlignment = []
         for trace in self.traceStack:
