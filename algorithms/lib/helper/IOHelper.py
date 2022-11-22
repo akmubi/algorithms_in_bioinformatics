@@ -15,7 +15,7 @@ class IOHelper():
         Helper class for reading an writing files in different formats.
     """
     @staticmethod
-    def readFastaFile(inputFileName):
+    def readFastaFile(inputFileName, numBases=-1):
         """
             Reads a given fasta file and returns it as a array.
             inputFileName: The path (relative or absolute) to the input fasta
@@ -25,17 +25,53 @@ class IOHelper():
         if not os.path.exists(inputFileName):
             return sequences
 
-        with open(inputFileName, 'r') as inputFile:
+        with open(inputFileName, 'r') as input:
             sequence = ''
-            for line in inputFile:
+            skipLines = False
+            for line in input:
                 if line.startswith('>'):
                     if len(sequence) > 0:
                         sequences.append(sequence)
                         sequence = ''
+                    skipLines = False
                     continue
-                sequence += line.strip('\n')
-        sequences.append(sequence)
 
+                if not skipLines:
+                    sequence += line.strip()
+
+                if numBases != -1 and len(sequence) >= numBases:
+                    sequences.append(sequence[:numBases])
+                    sequence = ''
+                    skipLines = True
+
+        if len(sequence) > 0:
+            sequences.append(sequence)
+
+        return sequences
+
+    @staticmethod
+    def readFastaDir(inputDir, numBases=-1):
+        sequences = []
+        if not os.path.exists(inputDir):
+            return sequences
+
+        for root, _, files in os.walk(inputDir):
+            for file in files:
+                if file.endswith('.fna') or \
+                   file.endswith('.fas') or \
+                   file.endswith('.fasta'):
+                    with open(os.path.join(root, file), 'r') as input:
+                        sequence = ''
+                        for line in input:
+                            if line.startswith('>'):
+                                continue
+                            sequence += line.strip()
+
+                            if numBases != -1 and len(sequence) >= numBases:
+                                sequence = sequence[:numBases]
+                                break
+
+                        sequences.append(sequence)
         return sequences
 
     @staticmethod

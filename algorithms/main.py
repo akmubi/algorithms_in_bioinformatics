@@ -55,12 +55,26 @@ Options are: 'nw' for the algorithm of Needleman and Wunsch,
 ''')
 
     parser.add_argument(
-        '-f', '--inputFile',
+        '-f', '--input_file',
         dest='inputFile',
         help='''
 Define the file in which the input sequences are defined.
 It have to be in fasta-format.
 ''')
+
+    parser.add_argument(
+        '-d', '--inputdir',
+        dest="inputDir",
+        help='''
+Define the directory in which the input sequence files are located.
+Files must be in fasta-format.
+''')
+
+    parser.add_argument(
+        '-b', '--num_bases',
+        dest="numBases",
+        help='Define the number of bases to read for each input sequence'
+    )
 
     parser.add_argument(
         '-o', '--outputFile',
@@ -69,11 +83,8 @@ Define in which file the output should be written. If not defined, it is
 written to 'outputFile.fas' in the local directory.
 ''')
 
-    # parser.add_argument("-gc", "--gapCost", dest="gapCost",
-    #                     help="Name of a gap function definde in class PairwiseAligmentHelper.")
-
     parser.add_argument(
-        '--numSolutions',
+        '--num_solutions',
         dest='numSolutions',
         help='''
 Define the number of optimal solutions the Needleman-Wunsch algorithm
@@ -81,18 +92,13 @@ should compute.
 ''')
 
     parser.add_argument(
-        '--outputFormat',
+        '--output_format',
         dest='outputFormat',
         choices=['graphML', 'newickTree'],
         help='''
 Define the output format of the output file. This function is only parsed if
 you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
 ''')
-
-    # parser.add_argument("--scoring", dest="similarityScore",
-    #                     help="Name of a similarity score defined in class PairwiseAligmentHelper. Per default "
-    #                          "\"pam\" and \"blosum\" (pam250 and blosum62) are implemented. Feel free to extend, you can find the "
-    #                          "file \"PairwiseAligmentHelper.py\" in lib/helper. If this option is not defined, the pam250 matrix is choosen.")
 
     parser.add_argument(
         '-m', '--match',
@@ -131,14 +137,21 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
     args = parser.parse_args()
 
     outputFile = ''
-
     if args.outputFile:
         outputFile = args.outputFile
 
-    # if args.similarityScore:
-    #     weightFunction = args.similarityScore
+    numBases = -1
+    if args.numBases:
+        numBases = int(args.numBases)
 
-    sequences = getSequencesFromFile(args.inputFile)
+    sequences = []
+    if args.inputDir:
+        sequences = io.readFastaDir(args.inputDir, numBases)
+    elif args.inputFile:
+        sequences = io.readFastaFile(args.inputFile, numBases)
+    else:
+        print('You must specify file(-s) with option -f/--input_file or -d/--input_dir')
+        sys.exit()
 
     if len(sequences) >= 1 and args.algorithm == 'nussinov':
         print('+================+')
@@ -293,11 +306,11 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
             print('|    Needleman-Wunsch (n=3)    |')
             print('+==============================+\n')
 
-            if not (len(sequences) == 3):
-                print('Wrong number of input sequences.')
-                print('Needleman-Wunsch n=3 requires exactly three sequences')
-                print(f'{len(sequences)} sequences are given.')
-                sys.exit()
+            # if not (len(sequences) == 3):
+            #     print('Wrong number of input sequences.')
+            #     print('Needleman-Wunsch n=3 requires exactly three sequences')
+            #     print(f'{len(sequences)} sequences are given.')
+            #     sys.exit()
 
             numSolutions = -1
             if args.numSolutions:
