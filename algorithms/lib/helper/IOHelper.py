@@ -87,6 +87,8 @@ class IOHelper():
         if not outputFileName.endswith('.fas'):
             outputFileName += str('.fas')
 
+        os.makedirs(os.path.dirname(outputFileName), exist_ok=True)
+
         with open(outputFileName, 'w') as out:
             for i, alignmentSequences in enumerate(alignments):
                 for j, sequence in enumerate(alignmentSequences):

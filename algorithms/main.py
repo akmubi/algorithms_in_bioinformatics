@@ -159,7 +159,7 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
         print('+================+\n')
 
         if outputFile == '':
-            outputFile = 'nussinov.dotBracket'
+            outputFile = os.path.join('bin', 'nussinov.dotBracket')
         nussinov(sequences[0:1], outputFile)
 
     elif len(sequences) > 1:
@@ -170,7 +170,7 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
             print('+========================+\n')
 
             if outputFile == '':
-                outputFile = 'needlemanWunsch.fas'
+                outputFile = os.path.join('bin', 'needlemanWunsch.fas')
 
             scoreFunction = pah.nwDefaultScoreFunction
             if args.match and args.mismatch and args.gapCost:
@@ -206,7 +206,7 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
             print('+=============+\n')
 
             if outputFile == '':
-                outputFile = 'gotoh.fas'
+                outputFile = os.path.join('bin', 'gotoh.fas')
 
             scoreFunction = pah.gotohDefaultScoreFunction
             if args.match and args.mismatch and args.gapCost:
@@ -261,9 +261,9 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
 
             if outputFile == '':
                 if args.algorithm == 'upgma':
-                    outputFile = 'upgma'
+                    outputFile = os.path.join('bin', 'upgma')
                 else:
-                    outputFile = 'wpgma'
+                    outputFile = os.path.join('bin', 'wpgma')
 
             upgmaWpgma(args.algorithm == 'upgma', sequences, outputFile, newickTree)
 
@@ -291,8 +291,13 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
                 print('\nUsing default score function.')
 
             if outputFile == '':
-                outputFile = 'fengDoolittle.fas'
-            fengDoolittle(sequences, scoreFunction, outputFile)
+                outputFile = os.path.join('bin', 'fengDoolittle.fas')
+
+            fengDoolittle(
+                sequences,
+                scoreFunction,
+                outputFile
+            )
 
         elif args.algorithm == 'sumOfPairs':
             print('+====================+')
@@ -317,7 +322,7 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
                 numSolutions = int(args.numSolutions)
 
             if outputFile == '':
-               outputFile = 'nw3.fas'
+                outputFile = os.path.join('bin', 'nw3.fas')
 
             scoreFunction = mah.nw3DefaultScoreFunction
             if args.match and args.mismatch and args.gapCost and args.partialMatch:
@@ -381,10 +386,9 @@ def needlemanWunsch(sequences, outputFile, scoreFunction, maxSolutions=-1):
     print(f'One solution is:\n{result[0][0]}\n{result[0][1]}')
 
     io.writeFastaFile(result, outputFile)
-    print('\nFor more solutions look in the file \'needlemanWunsch.fas\' '\
-          'in the bin directory.')
+    print(f'\nFor more solutions look in the file \'{outputFile}\'.')
 
-def gotoh(sequences, scoreFunction, costFunction, outputFile='gotoh.fas'):
+def gotoh(sequences, scoreFunction, costFunction, outputFile):
     """
         Executes the Gotoh algorithm with a default score function defined
         as: a == b -> 0 and a !=b --> 1 and a cost function defined as:
@@ -409,7 +413,7 @@ def gotoh(sequences, scoreFunction, costFunction, outputFile='gotoh.fas'):
     print(f'One solution is:\n{result[0][0]}\n{result[0][1]}')
 
     io.writeFastaFile(result, outputFile)
-    print('\nFor more solutions look in the file \'gotoh.fas\' in the bin directory.')
+    print(f'\nFor more solutions look in the file \'{outputFile}\' in the bin directory.')
 
 def needlemanWunschN3(sequences, scoreFunction, outputFile, maxSolutions=-1):
     """
@@ -428,7 +432,7 @@ def needlemanWunschN3(sequences, scoreFunction, outputFile, maxSolutions=-1):
     print(f'One solution is:\n{result[0][0]}\n{result[0][1]}\n{result[0][2]}')
 
     io.writeFastaFile(result, outputFile)
-    print('\nFor more solutions look in the file \'nw3.fas\' in the bin directory.')
+    print(f'\nFor more solutions look in the file \'{outputFile}\' in the bin directory.')
 
 def upgmaWpgma(upgmaWpgma, sequences, outputFile, fileFormat):
     """
@@ -465,7 +469,7 @@ def upgmaWpgma(upgmaWpgma, sequences, outputFile, fileFormat):
     if not fileFormat:
         outputFile += '.graphML'
         io.writeGraphMLFile(uwpgma.mapping, outputFile)
-        print(f'Clustering written as graphML file: {os.path.abspath(outputFile)}')
+        print(f'Clustering written as graphML file \'{outputFile}\'')
 
     else:
         outputFile += '.newickTree'
@@ -473,7 +477,7 @@ def upgmaWpgma(upgmaWpgma, sequences, outputFile, fileFormat):
 
         io.writeNewickTree(cluster, outputFile)
         print(f'Computed cluster: {cluster}')
-        print(f'The clustering was also written to: {os.path.abspath(outputFile)}')
+        print(f'The clustering was also written to \'{outputFile}\'')
 
 def nussinov(sequence, outputFile):
     """
@@ -497,7 +501,7 @@ def nussinov(sequence, outputFile):
         print(stack[key], end='')
     print()
 
-    print(f'The result was also written to: {os.path.abspath(outputFile)}')
+    print(f'The result was also written to \'{outputFile}\'')
 
 def sumOfPairs(sequences):
     """
@@ -518,25 +522,24 @@ def fengDoolittle(sequences, scoreFunction, outputFile):
         sequences:       All input sequnces to align.
         outputFile:      The output file name.
     """
-    fd = FengDoolittle(sequences, scoreFunction)
-    alignmentDict = fd.computeMultipleAlignment()
-    alignment = [[]]
-
-    for value in alignmentDict.values():
-        alignment[0].append(value)
-
-    io.writeFastaFile(alignment, outputFile)
-
     print('The following sequences are given:')
     for sequence in sequences:
         print(sequence)
 
+    fd = FengDoolittle(sequences, scoreFunction)
+    alignmentDict = fd.computeMultipleAlignment()
+    alignment = [[]]
+
     print('\nAlignment:')
     for value in alignmentDict.values():
+        alignment[0].append(value)
         print(value)
 
     sop = SumOfPairs(sequences)
     print(f'\nSum-of-pairs scoring: {sop.execute()}')
+
+    io.writeFastaFile(alignment, outputFile)
+    print(f'The result was also written to \'{outputFile}\'')
 
 if __name__ == '__main__':
         main()
