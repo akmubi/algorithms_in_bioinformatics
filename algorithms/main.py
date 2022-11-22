@@ -134,7 +134,7 @@ Score for partial matching several nucleotides.
 
     sequences = getSequencesFromFile(args.inputFile)
 
-    if len(sequences) >= 1:
+    if len(sequences) >= 1 and args.algorithm == 'nussinov':
         print('+================+')
         print('|    Nussinov    |')
         print('+================+\n')
@@ -224,12 +224,14 @@ Score for partial matching several nucleotides.
             newickTree = True
             if args.outputFormat == 'graphML':
                 newickTree = False
+
             if outputFile == '':
                 if args.algorithm == 'upgma':
                     outputFile = 'upgma'
                 else:
                     outputFile = 'wpgma'
-            upgmaWpgma(args.algorithm == "upgma", sequences, outputFile, newickTree)
+
+            upgmaWpgma(args.algorithm == 'upgma', sequences, outputFile, newickTree)
 
         elif args.algorithm == 'fengDoolittle':
             print('+======================+')
@@ -386,45 +388,40 @@ def upgmaWpgma(upgmaWpgma, sequences, outputFile, fileFormat):
     print('The following sequences are given:')
     for sequence in sequences:
         print(sequence)
-    print('Computing clustering...')
 
+    if len(set(sequences)) != len(sequences):
+        print('Warning! Sequences must be unique')
+
+    sequences = list(set(sequences))
+
+    if len(sequences) < 2:
+        print(f'Aborting. There are only {len(sequences)} unique sequences.')
+        print(f'Need at least 2')
+        sys.exit()
+
+    print('Computing clustering...')
     data = mah.createDataForUpgmaWpgma(sequences)
 
+    uwpgma = None
     if upgmaWpgma:
-        upgma = UpgmaWpgma(data[0], len(data[1]))
-        upgma.computeClustering()
+        uwpgma = UpgmaWpgma(data[0], len(data[1]))
+    else:
+        uwpgma = UpgmaWpgma(data[0], len(data[1]), False, data[2])
 
-        if not fileFormat:
-            outputFile += '.graphML'
-            io.writeGraphMLFile(upgma.mapping, outputFile)
-            print(f'Clustering written as graphML file: {os.path.abspath(outputFile)}')
+    uwpgma.computeClustering()
 
-        else:
-            outputFile += '.newickTree'
-            cluster = upgma.getNewickTree(with_edge_weights=True)
-
-            io.writeNewickTree(cluster, outputFile)
-            print(f'Computed upgma cluster: {cluster}')
-            print(f'The clustering was also written to: {os.path.abspath(outputFile)}')
+    if not fileFormat:
+        outputFile += '.graphML'
+        io.writeGraphMLFile(uwpgma.mapping, outputFile)
+        print(f'Clustering written as graphML file: {os.path.abspath(outputFile)}')
 
     else:
-        wpgma = UpgmaWpgma(data[0], len(data[1]), False, data[2])
-        wpgma.computeClustering()
+        outputFile += '.newickTree'
+        cluster = uwpgma.getNewickTree(widthEdgeWeights=True)
 
-        if not fileFormat:
-            outputFile += '.graphML'
-
-            io.writeGraphMLFile(wpgma.mapping, outputFile)
-            print(f'Clustering written as graphML file: {os.path.abspath(outputFile)}')
-
-        else:
-            outputFile += '.newickTree'
-            cluster = wpgma.getNewickTree(with_edge_weights=True)
-
-            io.writeNewickTree(cluster, outputFile)
-            print(f'Computed wpgma cluster: {cluster}')
-            print(f'The clustering was also written to: {os.path.abspath(outputFile)}')
-
+        io.writeNewickTree(cluster, outputFile)
+        print(f'Computed cluster: {cluster}')
+        print(f'The clustering was also written to: {os.path.abspath(outputFile)}')
 
 def nussinov(sequence, outputFile):
     """

@@ -21,6 +21,7 @@ class MultipleAlignmentHelper():
     gapBC = 5
     gapAC = 6
 
+    @staticmethod
     def generateScoreFunction(match, mismatch, gapCost, partialMatch):
         def scoreFunction(a, b, c):
             if a == '-' or b == '-' or c == '-':
@@ -45,7 +46,8 @@ class MultipleAlignmentHelper():
         else:
             return -6
 
-    def createDataForUpgmaWpgma(self, sequences):
+    @staticmethod
+    def createDataForUpgmaWpgma(sequences):
         """
             Preprocessing of the sequences for the upgm/wpgm algorithm.
         """
@@ -60,11 +62,11 @@ class MultipleAlignmentHelper():
         for i in range(len(sequences)):
             for j in range(i + 1, len(sequences)):
                 score = 0
-                maxLength = max( len(sequence[i]), len(sequences[j]) )
+                maxLength = max( len(sequences[i]), len(sequences[j]) )
                 for k in range(maxLength):
                     a = sequences[i][k] if k < len(sequences[i]) else '-'
                     b = sequences[j][k] if k < len(sequences[j]) else '-'
-                    score += helper.gotohScoreFunction(a, b)
+                    score += helper.gotohDefaultScoreFunction(a, b)
 
                 distances[f'{i} {j}'] = score
 
@@ -73,7 +75,3 @@ class MultipleAlignmentHelper():
             seqToIdMap,
             seqToLengthMap
         ]
-
-
-
-

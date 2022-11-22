@@ -59,7 +59,7 @@ class IOHelper():
 
     # TODO: refactor
     @staticmethod
-    def writeGraphMLFile(clusteredNodesDictionary, outputFileName):
+    def writeGraphMLFile(clusteredNodesDict, outputFileName):
         """
             Writes a tree computed by the UpgmaWpgma class in graphML-format to
             specified outputFileName.
@@ -68,13 +68,26 @@ class IOHelper():
             outputFileName += str('.graphml')
 
         with open(outputFileName, 'w') as out:
-            out.write('''
-<?xml version="1.0" encoding="UTF-8"?>
+            out.write(
+'''<?xml version="1.0" encoding="UTF-8"?>
 <graphml xmlns="http://graphml.graphdrawing.org/xmlns"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
   <graph id="G" edgedefault="undirected">
 ''')
+
+            for key in clusteredNodesDict:
+                nodes = key.split(' ')
+                out.write(f'\t\t<node id=\"{nodes[0]}\"/>\n')
+                out.write(f'\t\t<node id=\"{nodes[1]}\"/>\n')
+                out.write(f'\t\t<node id=\"{str(clusteredNodesDict[key])}\"/>\n')
+
+            for i, key in enumerate(clusteredNodesDict):
+                nodes = key.split(' ')
+                out.write(f'\t\t<edge id=\"{i * 2}\" source=\"{nodes[0]}\" target=\"{clusteredNodesDict[key]}\"/>\n')
+                out.write(f'\t\t<edge id=\"{i * 2 + 1}\" source=\"{nodes[0]}\" target=\"{clusteredNodesDict[key]}\"/>\n')
+
+            out.write('\t</graph>\n</graphml>')
 
         # for i in clusteredNodesDictionary:
         #     nodes = i.split(" ")

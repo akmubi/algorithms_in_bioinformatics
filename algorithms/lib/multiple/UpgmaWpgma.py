@@ -51,20 +51,21 @@ class UpgmaWpgma():
         j = 0
         while not done:
             j += 1
-            minKey, minValue = self.computeMinDistance()
-            nodes = minKey.split(' ') # ['key0', 'key1']
+            minId, minDistance = self.computeMinDistance()
+            nodes = minId.split(' ') # ['id0', 'id1']
 
-            if len(nodes) > 1:
-                self.mapping[minKey] = self.nodeCount
-                self.computeEdgeWeight(minValue, nodes)
+            if len(nodes) > 1: # len(['id0', 'id1']) == 2
+                self.mapping[minId] = self.nodeCount
+                self.computeEdgeWeight(minDistance, nodes)
 
-                if minKey in self.distances:
-                    del self.distances[minKey]
+                if minId in self.distances:
+                    del self.distances[minId]
 
                 for i in range(0, self.nodeCount + 1):
                     keys = self.keyInDict(f'{nodes[0]} {i}', f'{nodes[1]} {i}')
                     if keys[0] != '':
-                        # new distance
+                        # compute distance between 'id0 i' and 'id1 i'
+                        # (or between cluster 'id0 id1' and cluster 'i')
                         self.distances[f'{i} {self.nodeCount}'] = \
                             self.computeNewDistance(
                                 self.distances[keys[0]],
@@ -79,7 +80,8 @@ class UpgmaWpgma():
                         del self.distances[keys[0]]
                         del self.distances[keys[1]]
                 self.nodeCount += 1
-            else:
+
+            else: # len(['']) == 0
                 done = True
 
     def keyInDict(self, key1, key2):
@@ -89,8 +91,10 @@ class UpgmaWpgma():
             key1: The first key value.
             key2: The second key value.
         """
-        rkey1 = key1[::-1]
-        rkey2 = key2[::-1]
+
+        # '123 456' -> '456 123'
+        rkey1 = ' '.join(key1.split(' ')[::-1])
+        rkey2 = ' '.join(key2.split(' ')[::-1])
 
         if key1 in self.distances and key2 in self.distances:
             return [key1, key2]
@@ -110,15 +114,15 @@ class UpgmaWpgma():
         """
             Returns the next two clusters for merging.
         """
-        minKey   = ''       # 'key0 key1'
-        minValue = math.inf # distance
+        minId   = ''           # 'id0 id1'
+        minDistance = math.inf # distance
 
-        for key, value in self.distances.items():
-            if value < minValue:
-                minValue = value
-                minKey = key
+        for key, distance in self.distances.items():
+            if distance < minDistance:
+                minDistance = distance
+                minId = key
 
-        return minKey, minValue
+        return minId, minDistance
 
     def computeNewDistance(self, distanceAX, distanceBX, indexA, indexB):
         """
@@ -166,30 +170,30 @@ class UpgmaWpgma():
                     clusters.
             nodes:  A list containing the indices of the two merged clusters.
         """
-        node0, node1 = int(nodes[0]), int(nodes[1])
+        id0, id1 = int(nodes[0]), int(nodes[1])
 
-        if node0 < self.numNodes and node1 < self.numNodes:
+        if id0 < self.numNodes and id1 < self.numNodes:
             self.edgeWeight[self.nodeCount] = [
                 weight / 2.0,
                 weight / 2.0,
             ]
 
-        elif node0 < self.numNodes:
+        elif id0 < self.numNodes:
             self.edgeWeight[self.nodeCount] = [
                 weight / 2.0,
-                weight / 2.0 - self.edgeWeight[node1][1],
+                weight / 2.0 - self.edgeWeight[id1][1],
             ]
 
-        elif node1 < self.numNodes:
+        elif id1 < self.numNodes:
             self.edgeWeight[self.nodeCount] = [
-                weight / 2.0 - self.edgeWeight[node0][1],
+                weight / 2.0 - self.edgeWeight[id0][1],
                 weight / 2.0,
             ]
 
         else:
             self.edgeWeight[self.nodeCount] = [
-                weight / 2.0 - self.edgeWeight[node0][1],
-                weight / 2.0 - self.edgeWeight[node1][1],
+                weight / 2.0 - self.edgeWeight[id0][1],
+                weight / 2.0 - self.edgeWeight[id1][1],
             ]
 
     def getNewickTree(self, widthEdgeWeights=False):
@@ -203,12 +207,12 @@ class UpgmaWpgma():
         if widthEdgeWeights:
             for i in newickDict:
                 if i in self.edgeWeight:
-                    nodesWithWeights = newickDict[i].split(' ')
-                    nodesWithWeights[0] = nodesWithWeights[0].strip(' ')
-                    nodesWithWeights[0] += ':' + f'{self.edgeWeight[i][1]}'
-                    nodesWithWeights[1] = nodesWithWeights[1].strip(' ')
-                    nodesWithWeights[1] += ':' + f'{self.edgeWeight[i][0]}'
-                    newickDict[i] = f'{nodesWithWeights[0]} {nodesWithWeights[1]}'
+                    nodes = newickDict[i].split(' ')
+                    # nodes[0] = nodes[0].strip(' ')
+                    nodes[0] += ':' + f'{self.edgeWeight[i][1]}'
+                    # nodes[1] = nodes[1].strip(' ')
+                    nodes[1] += ':' + f'{self.edgeWeight[i][0]}'
+                    newickDict[i] = f'{nodes[0]} {nodes[1]}'
             self.mapping = dict([[v, k] for k, v in newickDict.items()])
 
         for i in self.mapping:

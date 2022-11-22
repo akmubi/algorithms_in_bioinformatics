@@ -11,7 +11,6 @@
 #
 # Nussinov algorithm
 
-# TODO: understand & refactor
 class Nussinov():
     """
         The algorithm of Nussinov is a RNA secondary structure folding
