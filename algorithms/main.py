@@ -221,7 +221,7 @@ def gotoh(sequences, outputFile='gotoh.fas'):
         Executes the Gotoh algorithm with a default score function defined
         as: a == b -> 0 and a !=b --> 1 and a cost function defined as:
         g(x) = 2 + k. Stores the alignments per default in file gotoh.fas.
-        outputFile:     The path to the output file.
+        outputFile: The path to the output file.
     """
     print('\nThe following sequences are given:')
     for i in sequences:
@@ -237,7 +237,7 @@ def gotoh(sequences, outputFile='gotoh.fas'):
         gotoh.matrices[2][-1][-1],
     )
     print(f'Number of solutions: {len(result)}')
-    print(f'Score: {score}')
+    print(f'Score: {-score}')
     print(f'One solution is:\n{result[0][0]}\n{result[0][1]}')
 
     io.writeFastaFile(result, outputFile)

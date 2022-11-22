@@ -35,7 +35,7 @@ class PairwiseAlignmentHelper():
     @staticmethod
     def weightFunctionDifference(a ,b):
         if a == b:
-            return 0
+            return -6
         else:
             return 1
 
