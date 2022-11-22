@@ -39,20 +39,20 @@ def main():
             'upgma', 'wpgma', 'nussinov'
         ],
         required=True,
-        help='''
-Define which algorithm should be executed.
-Options are: 'nw' for the algorithm of Needleman and Wunsch,
-             'gotoh' for the algorithm of Osamu Gotoh,
-             'nw3' for the Needleman-Wunsch algorithm with three sequences,
-             'fengDoolittle' for the heuristic multiple sequence alignment
-                             algorithm by Da-Fei Feng and Russell F. Doolittle,
-             'sumOfPairs' for the scoring of a multiple sequence alignment by
-                          Humberto Carrillo and David Lipman.
-             'upgma' or 'wpgma' is a clustering method to generate phylogenetic
-                                trees,
-             'nussinov' for the RNA secondary structure prediction algorithm
-                        by Ruth Nussinov.
-''')
+        help='Define which algorithm should be executed.\n'\
+             'Options are:\n'\
+             '\'nw\' for the algorithm of Needleman and Wunsch;\n'\
+             '\'gotoh\' for the algorithm of Osamu Gotoh;\n'\
+             '\'nw3\' for the Needleman-Wunsch algorithm with three sequences;\n'\
+             '\'fengDoolittle\' for the heuristic multiple sequence alignment\n'\
+             '                  algorithm by Da-Fei Feng and Russell F. Doolittle;\n'\
+             '\'sumOfPairs\' for the scoring of a multiple sequence alignment by\n'\
+             '               Humberto Carrillo and David Lipman;\n'\
+             '\'upgma\' or \'wpgma\' is a clustering method to generate\n'\
+             '                       phylogenetic trees;\n'\
+             '\'nussinov\' for the RNA secondary structure prediction algorithm\n'\
+             '             by Ruth Nussinov.\n'
+    )
 
     parser.add_argument(
         '-f', '--input_file',
