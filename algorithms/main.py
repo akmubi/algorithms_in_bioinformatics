@@ -108,7 +108,7 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
         '-gc', '--gap_cost',
         dest='gapCost',
         help='Score for opening a gap in sequence. Is\'t used in Gotoh '\
-             '(use --gap_opening and gap_enlargement instead).'
+             '(use --gap_opening and --gap_enlargement instead).'
     )
 
     parser.add_argument(
@@ -353,7 +353,7 @@ def needlemanWunsch(sequences, outputFile, scoreFunction, maxSolutions=-1):
         Executes the Needleman-Wunsch algorithm with a default score function
         defined as: a == b -> 0 and a !=b --> 1. Stores the alignments per
         default in file needlemanWunsch.fas.
-        outputFile:         The path to the output file.
+        outputFile: The path to the output file.
     """
     print('The following sequences are given:')
     for sequence in sequences:
