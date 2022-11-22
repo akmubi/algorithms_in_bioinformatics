@@ -73,7 +73,7 @@ Files must be in fasta-format.
     parser.add_argument(
         '-b', '--num_bases',
         dest="numBases",
-        help='Define the number of bases to read for each input sequence'
+        help='Define the number of bases to read for each input sequence.'
     )
 
     parser.add_argument(
