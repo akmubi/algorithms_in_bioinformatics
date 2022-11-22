@@ -433,13 +433,21 @@ def nussinov(sequence, outputFile):
         outputFile: The name of the output file.
     """
     print('\nThe following sequence is given:')
-    print(f'{sequence[0]}\n')
+    print(sequence[0])
 
     nussinov = Nussinov(sequence[0])
     nussinov.execute()
 
-    print('\nDot-bracket: ')
-    io.writeRnaDotBracketNotation(sequence[0], nussinov.pairedBases, outputFile)
+    print('Dot-bracket: ')
+    stack = io.writeRnaDotBracketNotation(
+        sequence[0],
+        nussinov.pairedBases,
+        outputFile
+    )
+    for key in sorted(stack):
+        print(stack[key], end='')
+    print()
+
     print(f'The result was also written to: {os.path.abspath(outputFile)}')
 
 def sumOfPairs(sequences):

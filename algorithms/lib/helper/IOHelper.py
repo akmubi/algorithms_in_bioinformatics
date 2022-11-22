@@ -110,6 +110,8 @@ class IOHelper():
             for key in sorted(stack):
                 out.write(stack[key])
 
+        return stack
+
     @staticmethod
     def writeNewickTree(newickTree, outputFileName):
         with open(outputFileName, 'w') as out:
