@@ -149,7 +149,7 @@ class IOHelper():
             dot-bracket notation to the file outputFileName.
         """
         stack = {}
-        for i in range(len(sequence)):
+        for i in range(1, len(sequence) + 1):
             if i in pairedBases:
                 stack[i], stack[pairedBases[i]] = '(', ')'
             elif i not in stack:

@@ -58,25 +58,23 @@ class Nussinov():
         """
             This function computes the value for every cell of the matrix for
             the Nussinov-algorithm.
-            i: First index of cell of the Nussinov-matrix
-            j: Second index of cell of the Nussinov-matrix
             Every cell is the maximum of:
                             |       N_(i, j-1)
             N_(i,j) = max   |max i <= k < j N_(i, k-1) + N_(k+1, j-1) + 1
                             |       S_k and S_j are complementary
         """
-        self.matrix[i][j-1]
-        maximumValue = [0,0,0]
+        # self.matrix[i][j - 1]
+        maxPairingValue = -1
+
         k = i
-        while i <= k and k < j:
-            if self.areComplementary(self.sequence[k], self.sequence[j-1]):
-                pairingValue = self.matrix[i][k-1] + self.matrix[k+1][j-1] + 1
-                if maximumValue[2] < pairingValue:
-                    maximumValue[0] = k
-                    maximumValue[1] = j
-                    maximumValue[2] = pairingValue
+        while i <= k < j:
+            if self.areComplementary(self.sequence[k], self.sequence[j - 1]):
+                pairingValue = self.matrix[i][k - 1] + self.matrix[k + 1][j - 1] + 1
+                if pairingValue > maxPairingValue:
+                    maxPairingValue = pairingValue
             k += 1
-        self.matrix[i][j] = max(self.matrix[i][j-1], maximumValue[2])
+
+        self.matrix[i][j] = max(self.matrix[i][j - 1], maxPairingValue)
 
     def areComplementary(self, charA, charB):
         """
@@ -95,25 +93,21 @@ class Nussinov():
     def traceback(self, i, j):
         """
             Computes the traceback for the Nussinov-algorithm.
-            i: First index of cell of the Nussinov-matrix
-            j: Second index of cell of the Nussinov-matrix
         """
         if j <= i:
             return
-
         elif self.matrix[i][j] == self.matrix[i][j-1]:
-            self.traceback(i, j-1)
+            self.traceback(i, j - 1)
             return
 
         else:
             k = i
             while i <= k and k < j:
-                if self.areComplementary(self.sequence[k-1], self.sequence[j-1]):
-
-                    if self.matrix[i][j] == self.matrix[i][k-1] + self.matrix[k][j-1] + 1:
+                if self.areComplementary(self.sequence[k - 1], self.sequence[j - 1]):
+                    if self.matrix[i][j] == self.matrix[i][k - 1] + self.matrix[k][j - 1] + 1:
                         self.pairedBases[k] = j
-                        self.traceback(i, k-1)
-                        self.traceback(k, j -1)
+                        self.traceback(k, j - 1)
+                        self.traceback(i, k - 1)
                         return
                 k += 1
 

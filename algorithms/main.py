@@ -497,6 +497,7 @@ def nussinov(sequence, outputFile):
         nussinov.pairedBases,
         outputFile
     )
+
     for key in sorted(stack):
         print(stack[key], end='')
     print()
