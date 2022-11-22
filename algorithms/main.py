@@ -134,12 +134,21 @@ Score for partial matching several nucleotides.
 
     sequences = getSequencesFromFile(args.inputFile)
 
-    if len(sequences) > 1:
+    if len(sequences) >= 1:
+        print('+================+')
+        print('|    Nussinov    |')
+        print('+================+\n')
+
+        if outputFile == '':
+            outputFile = 'nussinov.dotBracket'
+        nussinov(sequences[0:1], outputFile)
+
+    elif len(sequences) > 1:
         # pairwise alignment
         if args.algorithm == 'nw':
-            print('+==================+')
-            print('| Needleman-Wunsch |')
-            print('+==================+\n')
+            print('+========================+')
+            print('|    Needleman-Wunsch    |')
+            print('+========================+\n')
 
             if outputFile == '':
                 outputFile = 'needlemanWunsch.fas'
@@ -208,6 +217,10 @@ Score for partial matching several nucleotides.
 
         # multiple alignment
         elif args.algorithm == 'upgma' or args.algorithm == 'wpgma':
+            print('+===================+')
+            print('|    UPGMA/WPGMA    |')
+            print('+===================+\n')
+
             newickTree = True
             if args.outputFormat == 'graphML':
                 newickTree = False
@@ -219,17 +232,25 @@ Score for partial matching several nucleotides.
             upgmaWpgma(args.algorithm == "upgma", sequences, outputFile, newickTree)
 
         elif args.algorithm == 'fengDoolittle':
+            print('+======================+')
+            print('|    Feng-Doolittle    |')
+            print('+======================+\n')
+
             if outputFile == '':
                 outputFile = 'fengDoolittle.fas'
             fengDoolittle(sequences, outputFile)
 
         elif args.algorithm == 'sumOfPairs':
+            print('+====================+')
+            print('|    Sum-Of-Pairs    |')
+            print('+====================+\n')
+
             sumOfPairs(sequences)
 
         elif args.algorithm == 'nw3':
-            print('+========================+')
-            print('| Needleman-Wunsch (n=3) |')
-            print('+========================+\n')
+            print('+==============================+')
+            print('|    Needleman-Wunsch (n=3)    |')
+            print('+==============================+\n')
 
             if not (len(sequences) == 3):
                 print('Wrong number of input sequences.')
@@ -271,14 +292,8 @@ Score for partial matching several nucleotides.
             )
 
     elif len(sequences) == 1:
-        # structure prediction
-        if args.algorithm == 'nussinov':
-            if outputFile == '':
-                outputFile = 'nussinov.dotBracket'
-            nussinov(sequences[0:1], outputFile)
-        else:
-            print('You have defined only one input sequence.')
-            print(f'But the algorithm \'{args.algorithm}\' requires two')
+        print('You have defined only one input sequence.')
+        print(f'But the algorithm \'{args.algorithm}\' requires two')
 
     else:
         print('No sequences are defined in input file.')

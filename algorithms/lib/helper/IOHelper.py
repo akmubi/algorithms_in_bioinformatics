@@ -107,8 +107,8 @@ class IOHelper():
 
         with open(outputFileName, 'w') as out:
             out.write(sequence + '\n')
-            if i in sorted(stack):
-                out.write(stack[i])
+            for key in sorted(stack):
+                out.write(stack[key])
 
     @staticmethod
     def writeNewickTree(newickTree, outputFileName):

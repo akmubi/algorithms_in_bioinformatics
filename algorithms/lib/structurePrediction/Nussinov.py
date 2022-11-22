@@ -27,6 +27,12 @@ class Nussinov():
             rnaSequence: The RNA sequence for which the folding should be
                          computed.
         """
+        countT = rnaSequence.count('T')
+        countU = rnaSequence.count('U')
+        if countT > 0:
+            print('Warning! RNA sequence expected, ', end='')
+            print(f'but found {countT} \'T\' and {countU} \'U\'')
+
         self.sequence = rnaSequence
         self.pairedBases = {}
         self.matrix = [[]]
@@ -37,7 +43,7 @@ class Nussinov():
             based on.
         """
         length = len(self.sequence)
-        self.matrix = [[0] * (length + 1)] * length
+        self.matrix = [[0 for _ in range(length + 1)] for _ in range(length)]
 
         i = 2
         while i <= len(self.sequence):
@@ -119,6 +125,6 @@ class Nussinov():
         """
         self.computeMatrix()
         self.traceback(0, len(self.sequence))
-        print(self.pairedBases)
-        print(str(len(self.pairedBases)))
+        # print(self.pairedBases)
+        # print(str(len(self.pairedBases)))
         return self.pairedBases
