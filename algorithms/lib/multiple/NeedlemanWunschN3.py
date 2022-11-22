@@ -15,12 +15,17 @@ class NeedlemanWunschN3():
         This class computes the Needleman-Wunsch algorithm with three sequences.
     """
 
-    def __init__(self, seqA, seqB, seqC, maxSolutions=-1):
+    def __init__(self,
+                 seqA,
+                 seqB,
+                 seqC,
+                 maxSolutions=-1,
+                 scoreFunction=helper.nw3DefaultScoreFunction):
         """
             Initalize all variables and methods needed to compute
             the Needleman-Wunsch algorithm with three sequences.
         """
-
+        self.__score = scoreFunction
         self.seqA = seqA
         self.seqB = seqB
         self.seqC = seqC
@@ -29,9 +34,6 @@ class NeedlemanWunschN3():
         self.traceIndex = 0
         self.traceIndices = [[]]
         self.maxSolutions = maxSolutions
-
-    def __score(self, a, b, c):
-        return helper.weightFunctionDifference(a, b, c)
 
     def __computeMatrix(self, seqA, seqB, seqC):
         """

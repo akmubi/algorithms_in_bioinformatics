@@ -21,11 +21,24 @@ class MultipleAlignmentHelper():
     gapBC = 5
     gapAC = 6
 
+    def generateScoreFunction(match, mismatch, gapCost, partialMatch):
+        def scoreFunction(a, b, c):
+            if a == '-' or b == '-' or c == '-':
+                return gapCost
+            elif a == b == c:
+                return match
+            elif a == b or b == c or a == c:
+                return partialMatch
+            else:
+                return mismatch
+
+        return scoreFunction
+
     @staticmethod
-    def weightFunctionDifference(a, b, c):
+    def nw3DefaultScoreFunction(a, b, c):
         if a == '-' or b == '-' or c == '-':
             return 0
-        if a == b == c:
+        elif a == b == c:
             return 6
         elif a == b or b == c or a == c:
             return 1
@@ -51,7 +64,7 @@ class MultipleAlignmentHelper():
                 for k in range(maxLength):
                     a = sequences[i][k] if k < len(sequences[i]) else '-'
                     b = sequences[j][k] if k < len(sequences[j]) else '-'
-                    score += helper.weightFunctionDifference(a, b)
+                    score += helper.gotohScoreFunction(a, b)
 
                 distances[f'{i} {j}'] = score
 

@@ -23,7 +23,11 @@ class NeedlemanWunsch():
         http://www.cise.ufl.edu/class/cis4930sp09rab/00052.pdf
     """
 
-    def __init__(self, seqA, seqB, maxSolutions=-1):
+    def __init__(self,
+                 seqA,
+                 seqB,
+                 scoreFunction=helper.nwDefaultScoreFunction,
+                 maxSolutions=-1):
         """
             Initalize all variables and methods needed to compute
             the Needleman-Wunsch algorithm.
@@ -34,9 +38,7 @@ class NeedlemanWunsch():
         self.seqB = seqB
         self.maxSolutions = maxSolutions
         self.matrix = [[0 for _ in range(len(seqB) + 1)] for _ in range(len(seqA) + 1)]
-
-    def __score(self, a, b):
-        return helper.weightFunctionDifference2(a, b)
+        self.__score = scoreFunction
 
     def __computeMatrix(self, seqA, seqB):
         """

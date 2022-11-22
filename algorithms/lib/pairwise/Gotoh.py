@@ -22,18 +22,18 @@ class Gotoh():
         https://www.cs.umd.edu/class/spring2003/cmsc838t/papers/gotoh1982.pdf
     """
 
-    def __score(self, a, b):
-        return helper.weightFunctionDifference(a, b)
-
-    def __cost(self, x):
-        return helper.gapCost(x)
-
-    def __init__(self, seqA, seqB):
+    def __init__(self,
+                 seqA,
+                 seqB,
+                 scoreFunction=helper.gotohDefaultScoreFunction,
+                 costFunction=helper.gotohDefaultCostFunction):
         """
             Initalize all variables and methods needed to compute the Gotoh algorithm.
                 seqA:      A string with the first DNA sequence.
                 seqB:      A string with the second DNA sequence.
         """
+        self.__score = scoreFunction
+        self.__cost  = costFunction
         self.seqA = seqA
         self.seqB = seqB
         self.matrices = [[], [], []]
@@ -129,7 +129,7 @@ class Gotoh():
                 charA: The character in sequence A at position i.
                 charB: The character in sequence B at position j.
         """
-        return min(valP, min(valQ, valD + self.__score(charA, charB)))
+        return min(valP, valQ, valD + self.__score(charA, charB))
 
     def __traceback(self, seqA, seqB, matrices):
         """

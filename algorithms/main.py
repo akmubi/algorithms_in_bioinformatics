@@ -15,6 +15,7 @@ import sys
 import argparse
 
 from lib.helper.IOHelper import IOHelper as io
+from lib.helper.PairwiseAlignmentHelper import PairwiseAlignmentHelper as pah
 from lib.helper.MultipleAlignmentHelper import MultipleAlignmentHelper as mah
 from lib.pairwise.NeedlemanWunsch import NeedlemanWunsch as nw
 from lib.pairwise.Gotoh import Gotoh
@@ -94,10 +95,31 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
     #                          "file \"PairwiseAligmentHelper.py\" in lib/helper. If this option is not defined, the pam250 matrix is choosen.")
 
     parser.add_argument(
-        '--gapPenalty',
-        dest='gapPenalty',
+        '-m', '--match',
+        dest='match',
         help='''
-Define a gap penalty. Default for pam is 8 and blosum 6.
+Score for matching two nucleotides. Used in alignment.
+''')
+
+    parser.add_argument(
+        '-mm', '--mismatch',
+        dest='mismatch',
+        help='''
+Score for mismatching two nucleotides. Used in alignment.
+''')
+
+    parser.add_argument(
+        '-gc', '--gap_cost',
+        dest='gapCost',
+        help='''
+Score for gap in a sequence.
+''')
+
+    parser.add_argument(
+        '-pm', '--partial_match',
+        dest='partialMatch',
+        help='''
+Score for partial matching several nucleotides.
 ''')
 
     args = parser.parse_args()
@@ -115,8 +137,30 @@ Define a gap penalty. Default for pam is 8 and blosum 6.
     if len(sequences) > 1:
         # pairwise alignment
         if args.algorithm == 'nw':
+            print('+==================+')
+            print('| Needleman-Wunsch |')
+            print('+==================+\n')
+
             if outputFile == '':
                 outputFile = 'needlemanWunsch.fas'
+
+            scoreFunction = pah.nwDefaultScoreFunction
+            if args.match and args.mismatch and args.gapCost:
+                scoreFunction = pah.generateScoreFunction(
+                    int(args.match),
+                    int(args.mismatch),
+                    int(args.gapCost),
+                )
+            elif args.match == args.mismatch == args.gapCost == None:
+                print('Using default score function.')
+            else:
+                print('If you defined one of the score parameters ' \
+                      '(match, mismatch, gap_cost), you must define all ' \
+                      'of them')
+                print('Was given:')
+                print(f'match: {args.match}, mismatch: {args.mismatch}')
+                print(f'gap_cost: {args.gapCost}')
+                print('\nUsing default score function.')
 
             numSolutions = -1
             if args.numSolutions:
@@ -124,13 +168,43 @@ Define a gap penalty. Default for pam is 8 and blosum 6.
             needlemanWunsch(
                 sequences[0:2],
                 outputFile = outputFile,
-                maxSolutions=numSolutions
+                scoreFunction = scoreFunction,
+                maxSolutions=numSolutions,
             )
 
         elif args.algorithm == 'gotoh':
+            print('+=============+')
+            print('|    Gotoh    |')
+            print('+=============+\n')
+
             if outputFile == '':
                 outputFile = 'gotoh.fas'
-            gotoh(sequences[0:2], outputFile = outputFile)
+
+            scoreFunction = pah.gotohDefaultScoreFunction
+            costFunction = pah.gotohDefaultCostFunction
+            if args.match and args.mismatch and args.gapCost:
+                scoreFunction = pah.generateScoreFunction(
+                    int(args.match),
+                    int(args.mismatch),
+                    int(args.gapCost),
+                )
+            elif args.match == args.mismatch == args.gapCost == None:
+                print('Using default score function.')
+            else:
+                print('If you defined one of the score parameters ' \
+                      '(match, mismatch, gap_cost), you must define all ' \
+                      'of them')
+                print('Was given:')
+                print(f'match: {args.match}, mismatch: {args.mismatch}')
+                print(f'gap_cost: {args.gapCost}')
+                print('\nUsing default score function.')
+
+            gotoh(
+                sequences[0:2],
+                scoreFunction,
+                costFunction,
+                outputFile = outputFile
+            )
 
         # multiple alignment
         elif args.algorithm == 'upgma' or args.algorithm == 'wpgma':
@@ -153,6 +227,10 @@ Define a gap penalty. Default for pam is 8 and blosum 6.
             sumOfPairs(sequences)
 
         elif args.algorithm == 'nw3':
+            print('+========================+')
+            print('| Needleman-Wunsch (n=3) |')
+            print('+========================+\n')
+
             if not (len(sequences) == 3):
                 print('Wrong number of input sequences.')
                 print('Needleman-Wunsch n=3 requires exactly three sequences')
@@ -165,8 +243,29 @@ Define a gap penalty. Default for pam is 8 and blosum 6.
 
             if outputFile == '':
                outputFile = 'nw3.fas'
+
+            scoreFunction = mah.nw3DefaultScoreFunction
+            if args.match and args.mismatch and args.gapCost and args.partialMatch:
+                scoreFunction = mah.generateScoreFunction(
+                    int(args.match),
+                    int(args.mismatch),
+                    int(args.gapCost),
+                    int(args.partialMatch),
+                )
+            elif args.match == args.mismatch == args.gapCost == args.partialMatch == None:
+                print('Using default score function.')
+            else:
+                print('If you defined one of the score parameters ' \
+                      '(match, mismatch, gap_cost, partial_match), you must ' \
+                      'define all of them')
+                print('Was given:')
+                print(f'match: {args.match}, mismatch: {args.mismatch}')
+                print(f'gap_cost: {args.gapCost}, partial_match: {args.partialMatch}')
+                print('\nUsing default score function.')
+
             needlemanWunschN3(
                 sequences[0:3],
+                scoreFunction=scoreFunction,
                 outputFile = outputFile,
                 maxSolutions=numSolutions
             )
@@ -193,7 +292,7 @@ def getSequencesFromFile(inputFile):
     """
     return io.readFastaFile(inputFile)
 
-def needlemanWunsch(sequences, outputFile, maxSolutions=-1):
+def needlemanWunsch(sequences, outputFile, scoreFunction, maxSolutions=-1):
     """
         Executes the Needleman-Wunsch algorithm with a default score function
         defined as: a == b -> 0 and a !=b --> 1. Stores the alignments per
@@ -205,7 +304,7 @@ def needlemanWunsch(sequences, outputFile, maxSolutions=-1):
         print(sequence)
 
     print('\nComputing solution...\n')
-    nwObj = nw(sequences[0], sequences[1], maxSolutions)
+    nwObj = nw(sequences[0], sequences[1], scoreFunction, maxSolutions)
     result = nwObj.compute()
 
     print(f'Number of optimal solutions: {len(result)}')
@@ -216,7 +315,7 @@ def needlemanWunsch(sequences, outputFile, maxSolutions=-1):
     print('\nFor more solutions look in the file \'needlemanWunsch.fas\' '\
           'in the bin directory.')
 
-def gotoh(sequences, outputFile='gotoh.fas'):
+def gotoh(sequences, scoreFunction, costFunction, outputFile='gotoh.fas'):
     """
         Executes the Gotoh algorithm with a default score function defined
         as: a == b -> 0 and a !=b --> 1 and a cost function defined as:
@@ -228,7 +327,7 @@ def gotoh(sequences, outputFile='gotoh.fas'):
         print(i)
 
     print('\nComputing solution...\n')
-    gotoh = Gotoh(sequences[0], sequences[1])
+    gotoh = Gotoh(sequences[0], sequences[1], scoreFunction, costFunction)
     result = gotoh.compute()
 
     score = max(
@@ -243,7 +342,7 @@ def gotoh(sequences, outputFile='gotoh.fas'):
     io.writeFastaFile(result, outputFile)
     print('\nFor more solutions look in the file \'gotoh.fas\' in the bin directory.')
 
-def needlemanWunschN3(sequences, outputFile, maxSolutions=-1):
+def needlemanWunschN3(sequences, scoreFunction, outputFile, maxSolutions=-1):
     """
         Executes the Needleman-Wunsch algorithm with three sequences
     """
@@ -252,7 +351,7 @@ def needlemanWunschN3(sequences, outputFile, maxSolutions=-1):
         print(sequence)
 
     print('\nComputing solution...\n')
-    nw3 = NW3(sequences[0], sequences[1], sequences[2], maxSolutions)
+    nw3 = NW3(sequences[0], sequences[1], sequences[2], maxSolutions, scoreFunction)
     result = nw3.compute()
 
     print(f'Score: {nw3.matrix[-1][-1][-1]}')
@@ -261,7 +360,6 @@ def needlemanWunschN3(sequences, outputFile, maxSolutions=-1):
 
     io.writeFastaFile(result, outputFile)
     print('\nFor more solutions look in the file \'nw3.fas\' in the bin directory.')
-
 
 def upgmaWpgma(upgmaWpgma, sequences, outputFile, fileFormat):
     """
@@ -342,13 +440,13 @@ def sumOfPairs(sequences):
     sop = SumOfPairs(sequences)
     print(f'Sum-of-pairs scoring: {sop.execute()}')
 
-def fengDoolittle(sequences, outputFile):
+def fengDoolittle(sequences, outputFile, scoreParams):
     """
         Executes the heuristic multiple sequence alignment by Feng and Doolittle.
         sequences:       All input sequnces to align.
         outputFile:      The output file name.
     """
-    fd = FengDoolittle(sequences)
+    fd = FengDoolittle(sequences, scoreParams)
     alignmentDict = fd.computeMultipleAlignment()
     alignment = [[]]
 

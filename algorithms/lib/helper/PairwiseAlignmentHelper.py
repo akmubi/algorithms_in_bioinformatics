@@ -33,14 +33,19 @@ class PairwiseAlignmentHelper():
     matrixIndexQ = 2
 
     @staticmethod
-    def weightFunctionDifference(a ,b):
-        if a == b:
-            return -6
-        else:
-            return 1
+    def generateScoreFunction(match, mismatch, gapCost):
+        def scoreFunction(a, b):
+            if a == '-' or b == '-':
+                return gapCost
+            elif a == b:
+                return match
+            else:
+                return mismatch
+
+        return scoreFunction
 
     @staticmethod
-    def weightFunctionDifference2(a, b):
+    def nwDefaultScoreFunction(a, b):
         # gap cost: ('G', -) or (-, 'A') -> 0
         if a == '-' or b == '-':
             return 0
@@ -52,10 +57,14 @@ class PairwiseAlignmentHelper():
             return 0
 
     @staticmethod
-    def gapCost(x):
-        """
-            Returns a gap cost of g(x) = 2 + k.
-        """
+    def gotohDefaultScoreFunction(a, b):
+        if a == b:
+            return -6
+        else:
+            return 1
+
+    @staticmethod
+    def gotohDefaultCostFunction(x):
         return 2 + x
 
     @staticmethod
