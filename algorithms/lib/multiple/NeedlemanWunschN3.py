@@ -19,12 +19,14 @@ class NeedlemanWunschN3():
                  seqA,
                  seqB,
                  seqC,
+                 scoreFunction=helper.nw3DefaultScoreFunction,
                  maxSolutions=-1,
-                 scoreFunction=helper.nw3DefaultScoreFunction):
+                 echo=False):
         """
             Initalize all variables and methods needed to compute
             the Needleman-Wunsch algorithm with three sequences.
         """
+        self.__echo = echo
         self.__score = scoreFunction
         self.seqA = seqA
         self.seqB = seqB
@@ -229,7 +231,8 @@ class NeedlemanWunschN3():
 
             self.traceIndex += 1
 
-            print(f'\rTraces processed: {self.traceIndex:05}/{len(self.traceIndices):05}', end='')
+            if self.__echo:
+                print(f'\rTraces processed: {self.traceIndex:05}/{len(self.traceIndices):05}', end='')
 
             # done if we have traversed all traces
             if self.traceIndex >= len(self.traceIndices):
@@ -239,7 +242,8 @@ class NeedlemanWunschN3():
             if self.maxSolutions != -1 and solutionCount >= self.maxSolutions:
                 done = True
 
-        print()
+        if self.__echo:
+            print()
 
         resultTraces = None
         if self.maxSolutions == -1:

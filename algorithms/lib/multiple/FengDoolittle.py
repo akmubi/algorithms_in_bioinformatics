@@ -15,41 +15,50 @@ from lib.pairwise.NeedlemanWunsch import NeedlemanWunsch
 from lib.helper.PairwiseAlignmentHelper import PairwiseAlignmentHelper as helper
 from lib.multiple.UpgmaWpgma import UpgmaWpgma
 
-# TODO: understand
 class FengDoolittle():
     """
-        This class computes the Feng-Doolittle algorithm by Da-Fei Feng and Russell F. Doolittle:
-        Feng, Da-Fei, and Russell F. Doolittle.
-        "Progressive sequence alignment as a prerequisitetto correct phylogenetic trees."
+        This class computes the Feng-Doolittle algorithm by Da-Fei Feng and
+        Russell F. Doolittle: Feng, Da-Fei, and Russell F. Doolittle.
+        "Progressive sequence alignment as a prerequisitetto correct
+        phylogenetic trees."
         Journal of molecular evolution 25.4 (1987): 351-360.
         http://dna.bio.puc.cl/cardex/papersbio252/Grupo06-2013.pdf
     """
 
-    def score(self, a, b):
+    def __score(self, a, b):
         return helper.pam250(a, b)
 
-    def __init__(self, sequences):
+    def __init__(self,
+                 sequences,
+                 nwScoreFunction=helper.nwDefaultScoreFunction):
         """
             To initialize an object of class FengDoolittle you have to define.
         """
+        self.__nwScoreFunction = nwScoreFunction
         self.sequences = sequences
         self.alignments = []
         self.alignmentToIndexMapping = {}
         self.sequenceToIndexMapping = {}
-        self.distanceDict = {}
+        self.distances = {}
         self.newickTree = ''
         self.orderToAlign = []
 
-    def computeAlignments(self):
+    def __computeAlignments(self):
         """
             This function computes all pairwise alignments between every
             sequence with the Needleman-Wunsch algorithm.
         """
-        nw = NeedlemanWunsch(self.sequences[i], self.sequences[j], 1)
         alignmentsAppend = self.alignments.append
         for i in range(0, len(self.sequences)):
             for j in range(i + 1, len(self.sequences)):
-                alignmentsAppend([nw.compute(), i, j])
+                nw = NeedlemanWunsch(
+                    seqA=self.sequences[i],
+                    seqB=self.sequences[j],
+                    scoreFunction=self.__nwScoreFunction,
+                    maxSolutions=1,
+                    echo=False,
+                )
+                alignmentsAppend([nw.compute()[0], i, j])
 
     def __computeDistanceDict(self):
         """
@@ -58,28 +67,35 @@ class FengDoolittle():
         """
         for alignment in self.alignments:
             key = f'{alignment[1]} {alignment[2]}'
-            self.distanceDict[key] = self.similarityToDistance(alignment[0])
+            self.distances[key] = self.similarityToDistance(alignment[0])
+
+        print()
 
     def similarityToDistance(self, alignment):
         """
             Computes from the given similarity the distance measure.
         """
-        sMax = self.similarity(alignment[0], alignment[0]) + self.similarity(alignment[1], alignment[1])
-        sMax /= 2
+        scoreMax = self.similarity(alignment[0], alignment[0]) + self.similarity(alignment[1], alignment[1])
+        scoreMax /= 2
 
         shuffle = []
         for a in [list(alignment[0]), list(alignment[1])]:
-            shuffle.append(''.join(random.shuffle(a)))
+            random.shuffle(a)
+            shuffle.append(''.join(a))
 
-        sRand = self.similarity(shuffle[0], shuffle[1])
-        if sMax == sRand:
-            sRand = sRand - 0.0001
+        scoreRand = self.similarity(shuffle[0], shuffle[1])
+        scoreAB = self.similarity(alignment[0], alignment[1])
+        scoreEff = 0
+
+        if scoreMax == scoreRand:
+            scoreRand = scoreRand - 0.0001
         else:
-            sEff = (self.similarity(alignment[0], alignment[1]) - sRand) / float(sMax - sRand)
-        if sEff <= 0.0:
+            scoreEff = (scoreAB - scoreRand) / (scoreMax - scoreRand)
+
+        if scoreEff <= 0.0:
             return 1
 
-        return -math.log10(sEff)
+        return -math.log10(scoreEff)
 
     def similarity(self, a, b):
         """
@@ -88,7 +104,7 @@ class FengDoolittle():
         """
         similarity = 0
         for i in range(len(a)):
-            similarity += self.score(a[i], b[i])
+            similarity += self.__score(a[i], b[i])
         return similarity
 
     def buildTree(self):
@@ -96,7 +112,7 @@ class FengDoolittle():
             This function computes the phylogenetic tree with UPGMA and stores
             it in the Newick-Tree format.
         """
-        upgma = UpgmaWpgma(self.distanceDict, len(self.sequences))
+        upgma = UpgmaWpgma(self.distances, len(self.sequences))
         upgma.computeClustering()
         self.newickTree = upgma.getNewickTree()
 
@@ -109,8 +125,14 @@ class FengDoolittle():
         optimalAlignment = []
         for i in firstGroup:
             for j in secondGroup:
-                nw = NeedlemanWunsch(i[0], j[0], 1)
-                alignment = nw.compute()
+                nw = NeedlemanWunsch(
+                    seqA=i[0],
+                    seqB=j[0],
+                    scoreFunction=self.__nwScoreFunction,
+                    maxSolutions=1,
+                    echo=False,
+                )
+                alignment = nw.compute()[0]
                 score = self.similarity(alignment[0], alignment[1])
                 if highestScore < score:
                     highestScore = score
@@ -158,14 +180,16 @@ class FengDoolittle():
                         break
                 firstGroup = substring[0:k].strip(',')
                 secondGroup = substring[k:-1].strip(',')
-            group0List = firstGroup.split(',')
-            group1List = secondGroup.split(',')
+            firstGroupList = firstGroup.split(',')
+            secondGroupList = secondGroup.split(',')
+
             firstList = []
             secondList = []
-            for j in group0List:
-                firstList.append(int(j.strip('(').strip(')').strip(',')))
-            for j in group1List:
-                secondList.append(int(j.strip('(').strip(')').strip(',')))
+            for j in firstGroupList:
+                firstList.append( int(j.strip('(),')) )
+
+            for j in secondGroupList:
+                secondList.append( int(j.strip('(),')) )
 
             self.orderToAlign.append(sorted([sorted(firstList), sorted(secondList)]))
             indexEnd = indexBegin
@@ -175,7 +199,7 @@ class FengDoolittle():
         """
             This function returns the multiple sequence alignment.
         """
-        self.computeAlignments()
+        self.__computeAlignments()
         self.__computeDistanceDict()
         self.buildTree()
         self.computeOrderOfSequencesToAlign()
@@ -209,8 +233,8 @@ class FengDoolittle():
         for i in self.orderToAlign:
             # one sequence with one sequence
             if len(i[0]) == 1 and len(i[1]):
-                indexAlignments[i[0][0]] = indexAlignments[i[0][0]].replace('-', 'X')
-                indexAlignments[i[1][0]] = indexAlignments[i[1][0]].replace('-', 'X')
+                indexAlignments[i[0][0]] = indexAlignments[i[0][0]]#.replace('-', 'X')
+                indexAlignments[i[1][0]] = indexAlignments[i[1][0]]#.replace('-', 'X')
             # one sequence with one group
             # two groups
             else:
@@ -223,18 +247,30 @@ class FengDoolittle():
                     secondGroup.append([indexAlignments[j],j])
 
                 pairwiseAlignment = self.buildMultipleAlignment(firstGroup, secondGroup)
-                indexAlignments[pairwiseAlignment[2]] = pairwiseAlignment[0].replace('-', 'X')
-                indexAlignments[pairwiseAlignment[3]] = pairwiseAlignment[1].replace('-', 'X')
+                indexAlignments[pairwiseAlignment[2]] = pairwiseAlignment[0]#.replace('-', 'X')
+                indexAlignments[pairwiseAlignment[3]] = pairwiseAlignment[1]#.replace('-', 'X')
 
                 for j in i[0]:
-                    nw = NeedlemanWunsch(pairwiseAlignment[0], indexAlignments[j], 1)
-                    indexAlignments[j] = nw.compute()[1]
+                    nw = NeedlemanWunsch(
+                        seqA=pairwiseAlignment[0],
+                        seqB=indexAlignments[j],
+                        scoreFunction=self.__nwScoreFunction,
+                        maxSolutions=1,
+                        echo=False,
+                    )
+                    indexAlignments[j] = nw.compute()[0][1]
 
                 for j in i[1]:
-                    nw = NeedlemanWunsch(pairwiseAlignment[1], indexAlignments[j], 1)
-                    indexAlignments[j] = nw.compute()[1]
+                    nw = NeedlemanWunsch(
+                        seqA=pairwiseAlignment[1],
+                        seqB=indexAlignments[j],
+                        scoreFunction=self.__nwScoreFunction,
+                        maxSolutions=1,
+                        echo=False,
+                    )
+                    indexAlignments[j] = nw.compute()[0][1]
 
                 for j in indexAlignments:
-                    indexAlignments[j] = indexAlignments[j].replace("-", "X")
+                    indexAlignments[j] = indexAlignments[j]#.replace("-", "X")
 
         return indexAlignments

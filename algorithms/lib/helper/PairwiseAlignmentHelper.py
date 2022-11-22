@@ -45,6 +45,13 @@ class PairwiseAlignmentHelper():
         return scoreFunction
 
     @staticmethod
+    def generateGapCostFunction(alpha, beta):
+        def gapCostFunction(k):
+            return alpha + beta * k
+
+        return gapCostFunction
+
+    @staticmethod
     def nwDefaultScoreFunction(a, b):
         # gap cost: ('G', -) or (-, 'A') -> 0
         if a == '-' or b == '-':

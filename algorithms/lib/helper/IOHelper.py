@@ -57,7 +57,6 @@ class IOHelper():
                     out.write(f'>Alignment {i} sequence {j}\n')
                     out.write(f'{sequence}\n')
 
-    # TODO: refactor
     @staticmethod
     def writeGraphMLFile(clusteredNodesDict, outputFileName):
         """

@@ -97,30 +97,36 @@ you choose 'upgma' or 'wpgma' as an algorithm. Default is 'Newick tree'.
     parser.add_argument(
         '-m', '--match',
         dest='match',
-        help='''
-Score for matching two nucleotides. Used in alignment.
-''')
+        help='Score for matching two nucleotides. Used in alignment.')
 
     parser.add_argument(
         '-mm', '--mismatch',
         dest='mismatch',
-        help='''
-Score for mismatching two nucleotides. Used in alignment.
-''')
+        help='Score for mismatching two nucleotides. Used in alignment.')
 
     parser.add_argument(
         '-gc', '--gap_cost',
         dest='gapCost',
-        help='''
-Score for gap in a sequence.
-''')
+        help='Score for opening a gap in sequence. Is\'t used in Gotoh '\
+             '(use --gap_opening and gap_enlargement instead).'
+    )
 
     parser.add_argument(
         '-pm', '--partial_match',
         dest='partialMatch',
-        help='''
-Score for partial matching several nucleotides.
-''')
+        help='Score for partial matching several nucleotides.')
+
+    parser.add_argument(
+        '-go', '--gap_opening',
+        dest='gapOpening',
+        help='Gap opening coefficient. Used in Gotoh.'
+    )
+
+    parser.add_argument(
+        '-ge', '--gap_enlargement',
+        dest='gapEnlargement',
+        help='Gap enlargement coefficient. Used in Gotoh.'
+    )
 
     args = parser.parse_args()
 
@@ -190,7 +196,6 @@ Score for partial matching several nucleotides.
                 outputFile = 'gotoh.fas'
 
             scoreFunction = pah.gotohDefaultScoreFunction
-            costFunction = pah.gotohDefaultCostFunction
             if args.match and args.mismatch and args.gapCost:
                 scoreFunction = pah.generateScoreFunction(
                     int(args.match),
@@ -206,6 +211,22 @@ Score for partial matching several nucleotides.
                 print('Was given:')
                 print(f'match: {args.match}, mismatch: {args.mismatch}')
                 print(f'gap_cost: {args.gapCost}')
+                print('\nUsing default score function.')
+
+            costFunction = pah.gotohDefaultCostFunction
+            if args.gapOpening and args.gapEnlargement:
+                costFunction = pah.generateGapCostFunction(
+                    int(args.gapOpening),
+                    int(args.gapEnlargement),
+                )
+            elif args.gapOpening == args.gapEnlargement == None:
+                print('Using default cost function.')
+            else:
+                print('If you defined one of the cost parameters ' \
+                      '(gap_opening, gap_enlargement), you must define all ' \
+                      'of them')
+                print('Was given:')
+                print(f'gap_opening: {args.match}, gap_enlargement: {args.mismatch}')
                 print('\nUsing default score function.')
 
             gotoh(
@@ -238,9 +259,27 @@ Score for partial matching several nucleotides.
             print('|    Feng-Doolittle    |')
             print('+======================+\n')
 
+            scoreFunction = pah.nwDefaultScoreFunction
+            if args.match and args.mismatch and args.gapCost:
+                scoreFunction = pah.generateScoreFunction(
+                    int(args.match),
+                    int(args.mismatch),
+                    int(args.gapCost),
+                )
+            elif args.match == args.mismatch == args.gapCost == None:
+                print('Using default score function.')
+            else:
+                print('If you defined one of the score parameters ' \
+                      '(match, mismatch, gap_cost), you must define all ' \
+                      'of them')
+                print('Was given:')
+                print(f'match: {args.match}, mismatch: {args.mismatch}')
+                print(f'gap_cost: {args.gapCost}')
+                print('\nUsing default score function.')
+
             if outputFile == '':
                 outputFile = 'fengDoolittle.fas'
-            fengDoolittle(sequences, outputFile)
+            fengDoolittle(sequences, scoreFunction, outputFile)
 
         elif args.algorithm == 'sumOfPairs':
             print('+====================+')
@@ -368,7 +407,7 @@ def needlemanWunschN3(sequences, scoreFunction, outputFile, maxSolutions=-1):
         print(sequence)
 
     print('\nComputing solution...\n')
-    nw3 = NW3(sequences[0], sequences[1], sequences[2], maxSolutions, scoreFunction)
+    nw3 = NW3(sequences[0], sequences[1], sequences[2], scoreFunction, maxSolutions)
     result = nw3.compute()
 
     print(f'Score: {nw3.matrix[-1][-1][-1]}')
@@ -460,13 +499,13 @@ def sumOfPairs(sequences):
     sop = SumOfPairs(sequences)
     print(f'Sum-of-pairs scoring: {sop.execute()}')
 
-def fengDoolittle(sequences, outputFile, scoreParams):
+def fengDoolittle(sequences, scoreFunction, outputFile):
     """
         Executes the heuristic multiple sequence alignment by Feng and Doolittle.
         sequences:       All input sequnces to align.
         outputFile:      The output file name.
     """
-    fd = FengDoolittle(sequences, scoreParams)
+    fd = FengDoolittle(sequences, scoreFunction)
     alignmentDict = fd.computeMultipleAlignment()
     alignment = [[]]
 
@@ -475,7 +514,7 @@ def fengDoolittle(sequences, outputFile, scoreParams):
 
     io.writeFastaFile(alignment, outputFile)
 
-    print('Input sequences:\n')
+    print('The following sequences are given:')
     for sequence in sequences:
         print(sequence)
 
@@ -483,7 +522,8 @@ def fengDoolittle(sequences, outputFile, scoreParams):
     for value in alignmentDict.values():
         print(value)
 
-    print(sumOfPairs(alignment[0]))
+    sop = SumOfPairs(sequences)
+    print(f'\nSum-of-pairs scoring: {sop.execute()}')
 
 if __name__ == '__main__':
         main()

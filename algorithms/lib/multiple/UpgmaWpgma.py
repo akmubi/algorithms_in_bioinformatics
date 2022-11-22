@@ -10,8 +10,6 @@
 # Albert-Ludwig-University Freiburg im Breisgau
 import math
 
-# TODO: understand
-
 class UpgmaWpgma():
     """
         Upgma/Wpgma is a clustering method to generate phylogenetic trees.

@@ -27,18 +27,20 @@ class NeedlemanWunsch():
                  seqA,
                  seqB,
                  scoreFunction=helper.nwDefaultScoreFunction,
-                 maxSolutions=-1):
+                 maxSolutions=-1,
+                 echo=True):
         """
             Initalize all variables and methods needed to compute
             the Needleman-Wunsch algorithm.
             seqA: A string with the first DNA sequence.
             seqB: A string with the second DNA sequence.
         """
+        self.__echo = echo
+        self.__score = scoreFunction
         self.seqA = seqA
         self.seqB = seqB
         self.maxSolutions = maxSolutions
         self.matrix = [[0 for _ in range(len(seqB) + 1)] for _ in range(len(seqA) + 1)]
-        self.__score = scoreFunction
 
     def __computeMatrix(self, seqA, seqB):
         """
@@ -166,7 +168,8 @@ class NeedlemanWunsch():
 
             currentTrace += 1
 
-            print(f'\rTraces processed: {currentTrace:05}/{len(traceIndices):05}', end='')
+            if self.__echo:
+                print(f'\rTraces processed: {currentTrace:05}/{len(traceIndices):05}', end='')
 
             # done if we have traversed all traces
             if currentTrace >= len(traceIndices):
@@ -175,7 +178,8 @@ class NeedlemanWunsch():
             if self.maxSolutions != -1 and solutionCount >= self.maxSolutions:
                 done = True
 
-        print()
+        if self.__echo:
+            print()
 
         computedAlignment = []
         resultTraces = None
