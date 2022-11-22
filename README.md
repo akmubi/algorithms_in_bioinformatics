@@ -97,7 +97,3 @@ To run the algorithms execute the file "main.py".
   -ge GAPENLARGEMENT, --gap_enlargement GAPENLARGEMENT
 
   Gap enlargement coefficient. Used in Gotoh.
-
-## Support
-
-If you are having issues, please let me know. Mail adress: wolffj[at]informatik[dot]uni-freiburg[dot]de
